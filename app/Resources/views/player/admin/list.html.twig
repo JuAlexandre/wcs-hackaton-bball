@@ -37,7 +37,7 @@
                                     <td>{{ player.shirtNumber }}</td>
                                     <td>{{ player.club.name }}</td>
                                     <td>
-                                        <a href="{{ path('admin_player_edit', { 'player': player.id }) }}" class="has-text-warning">Modifier</a>
+                                        <a href="{{ path('admin_player_edit', { 'player': player.id }) }}">Modifier</a>
                                         <a href="{{ path('admin_player_delete', { 'player': player.id }) }}" class="has-text-danger">Supprimer</a>
                                     </td>
                                 </tr>
