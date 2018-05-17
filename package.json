@@ -1,5 +1,5 @@
 {
-  "name": "wcs-hackaton-bbal",
+  "name": "wcs-hackaton-bball",
   "version": "1.0.0",
   "description": "",
   "engines": {
@@ -17,20 +17,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nooneexpectme/wcs-hackaton-bbal.git"
+    "url": "git+https://github.com/nooneexpectme/wcs-hackaton-bball.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nooneexpectme/wcs-hackaton-bbal/issues"
+    "url": "https://github.com/nooneexpectme/wcs-hackaton-bball/issues"
   },
-  "homepage": "https://github.com/nooneexpectme/wcs-hackaton-bbal#readme",
+  "homepage": "https://github.com/nooneexpectme/wcs-hackaton-bball#readme",
   "devDependencies": {
     "@symfony/webpack-encore": "^0.20.1",
+    "babel-polyfill": "^6.26.0",
     "bulma": "^0.7.1",
     "jquery": "^3.3.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "toastr": "^2.1.4",
     "webpack-notifier": "^1.6.0"
   }
 }

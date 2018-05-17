@@ -1,0 +1,70 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Joueurs',
+        subtitle: 'Liste des joueurs'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8">
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Age</th>
+                                <th>Numéro de maillot</th>
+                                <th>Photo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for player in players %}
+                                <tr>
+                                    <th>{{ player.id }}</th>
+                                    <td>{{ player.firstName }}</td>
+                                    <td>{{ player.lastName }}</td>
+                                    <td>{{ player.age }}</td>
+                                    <td>{{ player.shirtNumber }}</td>
+                                    <td><a href="{{ player.picture }}" target="_blank">{{ player.picture }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        {{ form_start(create_form, { 'action': path('admin_player_create') }) }}
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.firstName) }}</label>
+                                <div class="control">{{ form_widget(create_form.firstName, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.lastName) }}</label>
+                                <div class="control">{{ form_widget(create_form.lastName, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.age) }}</label>
+                                <div class="control">{{ form_widget(create_form.age, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.shirtNumber) }}</label>
+                                <div class="control">{{ form_widget(create_form.shirtNumber, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.picture) }}</label>
+                                <div class="control">{{ form_widget(create_form.picture, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <button class="button is-link is-fullwidth">Créer le joueur</button>
+                        {{ form_end(create_form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
