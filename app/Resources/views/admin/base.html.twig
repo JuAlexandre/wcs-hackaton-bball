@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Administration | {% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ asset('build/css/style.css') }}"/>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body data-alerts="{{ app.flashes() | json_encode }}">
+        {% include 'admin/_navbar.html.twig' %}
+        <div class="columns is-gapless">
+            <div class="column is-4-tablet is-3-desktop is-2-widescreen">{% include 'admin/_menu.html.twig' %}</div>
+            <div class="column">{% block body %}{% endblock %}</div>
+        </div>
+
+        <script type="text/javascript" src="{{ asset('build/js/admin.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
