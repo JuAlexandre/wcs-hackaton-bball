@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    <div class="field">
+        <label class="label">{{ form_label(form.name) }}</label>
+        <div class="control">{{ form_widget(form.name, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+{{ form_end(form) }}
