@@ -13,28 +13,22 @@
                     <table class="table is-fullwidth is-striped">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Name</th>
+                                <th>#</th>
+                                <th>Nom</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {% for pool in pools %}
-                            <tr>
-                                <td><a href="{{ path('admin_pool_show', { 'id': pool.id }) }}">{{ pool.id }}</a></td>
-                                <td>{{ pool.name }}</td>
-                                <td>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ path('admin_pool_show', { 'id': pool.id }) }}">show</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('admin_pool_edit', { 'id': pool.id }) }}">edit</a>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                            {% for pool in pools %}
+                                <tr>
+                                    <th>{{ pool.id }}</th>
+                                    <td>{{ pool.name }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_pool_edit', { 'pool': pool.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_pool_delete', { 'pool': pool.id }) }}" class="has-text-danger">Supprimer</a>                                            </li>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -45,7 +39,7 @@
                             'submit': 'Créer la poule',
                             'action': path('admin_pool_create')
                         } %}
-                    </div>
+                     </div>
                 </div>
             </div>
         </div>

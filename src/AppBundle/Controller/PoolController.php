@@ -57,17 +57,18 @@ class PoolController extends Controller
      * @param Pool $pool
      * @param Request $req
      * @return Response
-     * @Route("/admin/pool/{id}/edit", name="admin_pool_edit")
+     * @Route("/admin/pool/{pool}/edit", name="admin_pool_edit")
      * @Method({"GET", "POST"})
      */
     public function adminEdit(Pool $pool, Request $req): Response
     {
-        $editForm = $this->createForm('AppBundle\Form\PoolType', $pool);
+        $editForm = $this->createForm(PoolType::class, $pool);
         $editForm->handleRequest($req);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('admin_pool_edit', array('id' => $pool->getId()));
+            $this->addFlash('success', 'Poules modifié');
+            return $this->redirectToRoute('admin_pool_list');
         }
 
         return $this->render('pool/admin/edit.html.twig', [

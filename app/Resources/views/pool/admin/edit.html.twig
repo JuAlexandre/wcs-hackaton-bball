@@ -1,21 +1,30 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block title %}Modification de la poule "{{ pool.name }}"{% endblock %}
+
 {% block body %}
-    <h1>Pool edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    {% include 'admin/_page_heading.html.twig' with {
+        'title': 'Poules',
+        'subtitle': 'Modification de la poule <u>' ~ pool.name ~ '</u>'
+    } %}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_pool_list') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-4 is-offset-4">
+                    <div class="box">
+                        {% include 'pool/admin/_form.html.twig' with {
+                            'form': edit_form,
+                            'submit': 'Modifier la poules',
+                            'action': path('admin_pool_edit', { 'pool': pool.id })
+                        } %}
+                    </div>
+                        <ul>
+                            <li><a href="{{ path('admin_pool_delete', { 'pool': pool.id }) }}" class="has-text-danger">Supprimer cette poule</a></li>
+                            <li><a href="{{ path('admin_pool_list') }}">Retourner à la liste des poules</a></li>
+                        </ul>
+                    </div>
+                </div>
+    </section>
 {% endblock %}
