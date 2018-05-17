@@ -23,6 +23,7 @@
                                 <th>Age</th>
                                 <th>N° Maillot</th>
                                 <th>Club</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,10 +32,14 @@
                                     <th>{{ player.id }}</th>
                                     <td>{{ player.firstName }}</td>
                                     <td>{{ player.lastName }}</td>
-                                    <td><a href="{{ player.picture }}" target="_blank">{{ player.picture }}</a></td>
+                                    <td><a href="{{ player.picture }}" target="_blank">Voir la photo</a></td>
                                     <td>{{ player.age }}</td>
                                     <td>{{ player.shirtNumber }}</td>
                                     <td>{{ player.club.name }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_player_edit', { 'player': player.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_player_delete', { 'player': player.id }) }}" class="has-text-danger">Supprimer</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -44,33 +49,11 @@
                 <!-- Créer un joueur -->
                 <div class="column">
                     <div class="box">
-                        {{ form_start(create_form, { 'action': path('admin_player_create') }) }}
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.firstName) }}</label>
-                                <div class="control">{{ form_widget(create_form.firstName, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.lastName) }}</label>
-                                <div class="control">{{ form_widget(create_form.lastName, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.age) }}</label>
-                                <div class="control">{{ form_widget(create_form.age, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.shirtNumber) }}</label>
-                                <div class="control">{{ form_widget(create_form.shirtNumber, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.picture) }}</label>
-                                <div class="control">{{ form_widget(create_form.picture, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.club) }}</label>
-                                <div class="control select is-fullwidth">{{ form_widget(create_form.club) }}</div>
-                            </div>
-                            <button class="button is-link is-fullwidth">Créer le joueur</button>
-                        {{ form_end(create_form) }}
+                        {% include 'player/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer le joueur',
+                            'action': path('admin_player_create')
+                        } %}
                     </div>
                 </div>
             </div>
