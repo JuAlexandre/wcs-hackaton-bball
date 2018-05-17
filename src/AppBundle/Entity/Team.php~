@@ -1,0 +1,52 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Team
+ *
+ * @ORM\Table(name="team")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TeamRepository")
+ */
+class Team
+{
+    /**
+     * @var int
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @ORM\Column(name="name", type="string", length=128, unique=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     * @ORM\Column(name="flag", type="string", length=255, unique=true)
+     */
+    private $flag;
+
+    /**
+     * @var Player[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Player", mappedBy="team")
+     */
+    private $players;
+
+    /**
+     * @var Game[]
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game", mappedBy="teams")
+     */
+    private $games;
+
+    /**
+     * @var Game[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GameTeamStats", mappedBy="team")
+     */
+    private $scores;
+}

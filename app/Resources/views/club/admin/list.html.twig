@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Clubs',
+        subtitle: 'Liste des clubs'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <!-- Liste des clubs -->
+                <div class="column is-8">
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for club in clubs %}
+                                <tr>
+                                    <th>{{ club.id }}</th>
+                                    <td>{{ club.name }}</td>
+                                    <td><a target=_"blank" href="{{ club.image }}">{{ club.image }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Créer un club -->
+                <div class="column">
+                    <div class="box">
+                        {{ form_start(create_form, { 'action': path('admin_club_create') }) }}
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.name) }}</label>
+                                <div class="control">{{ form_widget(create_form.name, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.image) }}</label>
+                                <div class="control">{{ form_widget(create_form.image, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <button class="button is-link is-fullwidth">Créer le club</button>
+                        {{ form_end(create_form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
