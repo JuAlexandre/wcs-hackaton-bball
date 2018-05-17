@@ -7,6 +7,7 @@ use AppBundle\Form\PoolType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Pool controller.
@@ -15,121 +16,81 @@ class PoolController extends Controller
 {
     /**
      * Lists all pool entities.
-     *
+     * @param Request $req
+     * @return Response
      * @Route("/admin/pool/", name="admin_pool_list")
      * @Method("GET")
      */
-    public function indexAction()
+    public function adminList(Request $req): Response
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $pools = $em->getRepository('AppBundle:Pool')->findAll();
-
-        return $this->render('pool/admin/index.html.twig', array(
-            'pools' => $pools,
-        ));
+        return $this->render('pool/admin/list.html.twig', [
+            'create_form' => $this->createForm(PoolType::class)->createView(),
+            'pools' => $this->getDoctrine()->getRepository(Pool::class)->findAll()
+        ]);
     }
 
     /**
      * Creates a new pool entity.
-     *
-     * @Route("/admin/pool/new", name="admin_pool_new")
+     * @param Request $req
+     * @return Response
+     * @Route("/admin/pool/new", name="admin_pool_create")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function adminCreate(Request $req): Response
     {
         $pool = new Pool();
         $form = $this->createForm(PoolType::class, $pool);
-        $form->handleRequest($request);
+        $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($pool);
             $em->flush();
-
-            return $this->redirectToRoute('admin_pool_show', array('id' => $pool->getId()));
-        }
-
-        return $this->render('pool/admin/new.html.twig', array(
-            'pool' => $pool,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a pool entity.
-     *
-     * @Route("/admin/pool/{id}", name="admin_pool_show")
-     * @Method("GET")
-     */
-    public function showAction(Pool $pool)
-    {
-        $deleteForm = $this->createDeleteForm($pool);
-
-        return $this->render('pool/admin/show.html.twig', array(
-            'pool' => $pool,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing pool entity.
-     *
-     * @Route("/admin/pool/{id}/edit", name="admin_pool_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Pool $pool)
-    {
-        $deleteForm = $this->createDeleteForm($pool);
-        $editForm = $this->createForm('AppBundle\Form\PoolType', $pool);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_pool_edit', array('id' => $pool->getId()));
-        }
-
-        return $this->render('pool/admin/edit.html.twig', array(
-            'pool' => $pool,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes a pool entity.
-     *
-     * @Route("/admin/pool/{id}", name="admin_pool_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Pool $pool)
-    {
-        $form = $this->createDeleteForm($pool);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($pool);
-            $em->flush();
+            $this->addFlash('success', 'Poule créée');
         }
 
         return $this->redirectToRoute('admin_pool_list');
     }
 
     /**
-     * Creates a form to delete a pool entity.
-     *
-     * @param Pool $pool The pool entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * Displays a form to edit an existing pool entity.
+     * @param Pool $pool
+     * @param Request $req
+     * @return Response
+     * @Route("/admin/pool/{pool}/edit", name="admin_pool_edit")
+     * @Method({"GET", "POST"})
      */
-    private function createDeleteForm(Pool $pool)
+    public function adminEdit(Pool $pool, Request $req): Response
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_pool_delete', array('id' => $pool->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+        $editForm = $this->createForm(PoolType::class, $pool);
+        $editForm->handleRequest($req);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Poules modifié');
+            return $this->redirectToRoute('admin_pool_list');
+        }
+
+        return $this->render('pool/admin/edit.html.twig', [
+            'edit_form' => $editForm->createView(),
+            'pool' => $pool
+        ]);
+    }
+
+    /**
+     * Deletes a pool entity.
+     * @param Pool $pool
+     * @param Request $req
+     * @return Response
+     * @Route("/admin/pool/{pool}/delete", name="admin_pool_delete")
+     * @Method("GET")
+     */
+    public function adminDelete(Pool $pool, Request $req): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($pool);
+        $em->flush();
+        $this->addFlash('success', 'Poule supprimée');
+        return $this->redirectToRoute('admin_pool_list');
     }
 }
