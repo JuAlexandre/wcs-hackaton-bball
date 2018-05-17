@@ -9,27 +9,51 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class AbstractGame
+ * @package AppBundle\Entity
+ * @ORM\Table(name="abstract_game")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AbstractGameRepository")
+ */
 abstract class AbstractGame
 {
     /**
-     * @var Team
-     */
-    private $localTeam;
-    /**
-     * @var Team
-     */
-    private $visitorTeam;
-    /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int|null
+     * @ORM\Column(name="local_score", type="integer", nullable=true)
      * @Assert\Range(min=0, minMessage="Le score de l'équipe locale ne peut pas être négatif.")
      */
     private $localScore;
+
+
     /**
-     * @var int
+     * @var int|null
+     * @ORM\Column(name="visitor_score", type="integer", nullable=true)
      * @Assert\Range(min=0, minMessage="Le score de l'équipe visiteur ne peut pas être négatif.")
      */
     private $visitorScore;
+
+    /**
+     * @var Team
+     * @ORM\OneToMany(targetEntity="Team", mappedBy="localGames")
+     */
+    private $localTeam;
+
+    /**
+     * @var Team
+     * @ORM\OneToMany(targetEntity="Team", mappedBy="visitorGames")
+     */
+    private $visitorTeam;
 
     /**
      * AbstractGame constructor.
@@ -48,6 +72,60 @@ abstract class AbstractGame
     public function getResult(): ?Team
     {
         return ($this->getLocalScore() > $this->getVisitorScore()) ? $this->getLocalTeam() : $this->getVisitorTeam();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return AbstractGame
+     */
+    public function setId(int $id): AbstractGame
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLocalScore(): ?int
+    {
+        return $this->localScore;
+    }
+
+    /**
+     * @param int|null $localScore
+     * @return AbstractGame
+     */
+    public function setLocalScore(?int $localScore): AbstractGame
+    {
+        $this->localScore = $localScore;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getVisitorScore(): ?int
+    {
+        return $this->visitorScore;
+    }
+
+    /**
+     * @param int|null $visitorScore
+     * @return AbstractGame
+     */
+    public function setVisitorScore(?int $visitorScore): AbstractGame
+    {
+        $this->visitorScore = $visitorScore;
+        return $this;
     }
 
     /**
@@ -83,42 +161,6 @@ abstract class AbstractGame
     public function setVisitorTeam(Team $visitorTeam): AbstractGame
     {
         $this->visitorTeam = $visitorTeam;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLocalScore(): int
-    {
-        return $this->localScore;
-    }
-
-    /**
-     * @param int $localScore
-     * @return AbstractGame
-     */
-    public function setLocalScore(int $localScore): AbstractGame
-    {
-        $this->localScore = $localScore;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getVisitorScore(): int
-    {
-        return $this->visitorScore;
-    }
-
-    /**
-     * @param int $visitorScore
-     * @return AbstractGame
-     */
-    public function setVisitorScore(int $visitorScore): AbstractGame
-    {
-        $this->visitorScore = $visitorScore;
         return $this;
     }
 }

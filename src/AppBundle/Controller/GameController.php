@@ -16,11 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /***
  * Class GameController
  * @package AppBundle\Controller
- * @Route("admin/games", name="admin_game_list")
- * @Method("GET")
  */
 class GameController extends Controller
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/games", name="admin_game_list")
+     * @Method("GET")
+     */
     public function adminList()
     {
         $em = $this->getDoctrine()->getManager();

@@ -8,7 +8,11 @@
 
 namespace AppBundle\Repository;
 
-abstract class AbstractGameRepository extends \Doctrine\ORM\EntityRepository
+/**
+ * Class AbstractGameRepository
+ * @package AppBundle\Repository
+ */
+class AbstractGameRepository extends \Doctrine\ORM\EntityRepository
 {
 
 }
