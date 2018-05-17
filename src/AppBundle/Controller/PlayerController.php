@@ -63,4 +63,45 @@ class PlayerController extends Controller
         }
         return $this->redirectToRoute('admin_player_list');
     }
+
+    /**
+     * Edit player
+     * @param Player $player
+     * @param Request $req
+     * @return Response
+     * @Route("/admin/player/{player}/edit", name="admin_player_edit")
+     * @Method({ "POST", "GET" })
+     */
+    public function adminEdit(Player $player, Request $req): Response
+    {
+        $form = $this->createForm(PlayerType::class, $player);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Le joueur a été modifié');
+        }
+
+        return $this->render('player/admin/edit.html.twig', [
+            'edit_form' => $form->createView(),
+            'player' => $player,
+        ]);
+    }
+
+    /**
+     * Delete a player
+     * @param Player $player
+     * @return Response
+     * @Route("/admin/player/{player}/delete", name="admin_player_delete")
+     * @Method("GET")
+     */
+    public function adminDelete(Player $player): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($player);
+        $em->flush();
+        $this->addFlash('success', 'Le joueur a été supprimé');
+
+        return $this->redirectToRoute('admin_player_list');
+    }
 }
