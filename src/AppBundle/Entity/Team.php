@@ -36,20 +36,20 @@ class Team
     private $flag;
 
     /**
-     * @var Game[]
+     * @var AbstractGame[]
      * @ORM\ManyToOne(targetEntity="AbstractGame", inversedBy="localTeam")
      */
     private $localGames;
 
     /**
-     * @var Game[]
+     * @var AbstractGame[]
      * @ORM\ManyToOne(targetEntity="AbstractGame", inversedBy="visitorTeam")
      */
     private $visitorGames;
 
     /**
      * Return list of team's games
-     * @return Game[]
+     * @return AbstractGame[]
      */
     public function getGames(): array
     {
@@ -121,21 +121,19 @@ class Team
     /**
      * Set localGames.
      *
-     * @param \AppBundle\Entity\AbstractGame[]|null $localGames
+     * @param AbstractGame[]|null $localGames
      *
      * @return Team
      */
-    public function setLocalGames(\AppBundle\Entity\AbstractGame $localGames = null): self
+    public function setLocalGames(array $localGames = []): self
     {
         $this->localGames = $localGames;
-
         return $this;
     }
 
     /**
      * Get localGames.
-     *
-     * @return \AppBundle\Entity\AbstractGame[]|null
+     * @return AbstractGame[]|null
      */
     public function getLocalGames(): ?array
     {
@@ -144,22 +142,18 @@ class Team
 
     /**
      * Set visitorGames.
-     *
-     * @param \AppBundle\Entity\AbstractGame[]|null $visitorGames
-     *
+     * @param AbstractGame[]|null $visitorGames
      * @return Team
      */
-    public function setVisitorGames(\AppBundle\Entity\AbstractGame $visitorGames = null): self
+    public function setVisitorGames(array $visitorGames = []): self
     {
         $this->visitorGames = $visitorGames;
-
         return $this;
     }
 
     /**
      * Get visitorGames.
-     *
-     * @return \AppBundle\Entity\AbstractGame[]|null
+     * @return AbstractGame[]|null
      */
     public function getVisitorGames(): ?array
     {
