@@ -36,7 +36,54 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Créer un match -->
+                <div class="column">
+                    <div class="box">
+                        {{ form_start(create_form, { 'action': path('admin_game_create') }) }}
+                        <div class="field">
+                            <label class="label">{{ form_label(create_form.local_team) }}</label>
+                            <div class="control select is-fullwidth">{{ form_widget(create_form.local_team) }}</div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form_label(create_form.visitor_team) }}</label>
+                            <div class="control select is-fullwidth">{{ form_widget(create_form.visitor_team) }}</div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form_label(create_form.stadium) }}</label>
+                            <div class="control select is-fullwidth">{{ form_widget(create_form.stadium) }}</div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form_label(create_form.beginAt) }}</label>
+                            <div class="">{{ form_widget(create_form.beginAt) }}</div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label checkbox">
+                                        {{ form_widget(create_form.isPoolGame) }}
+                                        {{ form_label(create_form.isPoolGame) }}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label checkbox">
+                                        {{ form_widget(create_form.isFinished) }}
+                                        {{ form_label(create_form.isFinished) }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="button is-link is-fullwidth">Créer le match</button>
+                        {{ form_end(create_form) }}
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src=""></script>
 {% endblock %}

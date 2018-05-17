@@ -9,8 +9,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Game;
+use AppBundle\Entity\GameTeamStats;
+use AppBundle\Entity\Team;
+use AppBundle\Form\GameType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /***
@@ -24,13 +29,55 @@ class GameController extends Controller
      * @Route("/admin/games", name="admin_game_list")
      * @Method("GET")
      */
-    public function adminList()
+    public function adminList(): Response
     {
         $em = $this->getDoctrine()->getManager();
         $games = $em->getRepository(Game::class)->findAll();
 
         return $this->render('game/admin/list.html.twig', [
-           'games' => $games,
+            'create_form' => $this->createForm(GameType::class)->createView(),
+            'games' => $games,
         ]);
+    }
+
+    /**
+     * @param Request $req
+     * @return Response
+     * @Route("/admin/game/create", name="admin_game_create")
+     * @Method("POST")
+     */
+    public function adminCreate(Request $req): Response
+    {
+        $game = new Game();
+
+        $form = $this->createForm(GameType::class, $game);
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $teamManager = $em->getRepository(Team::class);
+
+            $teamLocalId = $req->request->get('game')['local_team'];
+            $teamVisitorId = $req->request->get('game')['visitor_team'];
+
+            $teamLocal = $teamManager->find($teamLocalId);
+            $teamVisitor = $teamManager->find($teamVisitorId);
+
+            $game->setTeams([
+                $teamLocal,
+                $teamVisitor
+            ]);
+
+            $gameTeamStatsLocal = new GameTeamStats($game, $teamLocal);
+            $gameTeamStatsVisitor = new GameTeamStats($game, $teamVisitor);
+
+            $em->persist($gameTeamStatsLocal);
+            $em->persist($gameTeamStatsVisitor);
+
+            $em->persist($game);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('admin_game_list');
     }
 }

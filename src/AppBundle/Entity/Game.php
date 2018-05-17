@@ -75,19 +75,6 @@ class Game
     private $stadium;
 
     /**
-     * Game constructor.
-     * @param Team $local
-     * @param Team $visitor
-     */
-    public function __construct(Team $local, Team $visitor)
-    {
-        $this->teams = [
-            $local,
-            $visitor
-        ];
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -108,7 +95,7 @@ class Game
     /**
      * @return GameTeamStats[]
      */
-    public function getStats(): array
+    public function getStats(): ?array
     {
         return $this->stats;
     }
@@ -126,7 +113,7 @@ class Game
     /**
      * @return Team[]
      */
-    public function getTeams(): array
+    public function getTeams(): ?array
     {
         return $this->teams;
     }
@@ -144,7 +131,7 @@ class Game
     /**
      * @return bool
      */
-    public function isPoolGame(): bool
+    public function isPoolGame(): ?bool
     {
         return $this->isPoolGame;
     }
@@ -162,7 +149,7 @@ class Game
     /**
      * @return \DateTime
      */
-    public function getBeginAt(): \DateTime
+    public function getBeginAt(): ?\DateTime
     {
         return $this->beginAt;
     }
@@ -180,7 +167,7 @@ class Game
     /**
      * @return bool
      */
-    public function isFinished(): bool
+    public function isFinished(): ?bool
     {
         return $this->isFinished;
     }
@@ -198,7 +185,7 @@ class Game
     /**
      * @return Stadium
      */
-    public function getStadium(): Stadium
+    public function getStadium(): ?Stadium
     {
         return $this->stadium;
     }

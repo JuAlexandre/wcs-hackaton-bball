@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Game;
+use AppBundle\Entity\Team;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,10 +35,21 @@ class GameTeamStats
     private $game;
 
     /**
-     * @var int
-     * @ORM\Column(name="score", type="integer")
+     * @var int|null
+     * @ORM\Column(name="score", type="integer", nullable=true)
      */
     private $score;
+
+    /**
+     * GameTeamStats constructor.
+     * @param \AppBundle\Entity\Game $game
+     * @param \AppBundle\Entity\Team $team
+     */
+    public function __construct(Game $game, Team $team)
+    {
+        $this->game = $game;
+        $this->team = $team;
+    }
 
     /**
      * Get id
@@ -55,7 +68,7 @@ class GameTeamStats
      *
      * @return GameTeamStats
      */
-    public function setScore($score)
+    public function setScore(?int $score): GameTeamStats
     {
         $this->score = $score;
 
@@ -67,7 +80,7 @@ class GameTeamStats
      *
      * @return integer
      */
-    public function getScore()
+    public function getScore(): ?int
     {
         return $this->score;
     }
@@ -75,11 +88,11 @@ class GameTeamStats
     /**
      * Set team
      *
-     * @param \AppBundle\Entity\Team $team
+     * @param Team $team
      *
      * @return GameTeamStats
      */
-    public function setTeam(\AppBundle\Entity\Team $team = null)
+    public function setTeam(Team $team = null)
     {
         $this->team = $team;
 
@@ -89,7 +102,7 @@ class GameTeamStats
     /**
      * Get team
      *
-     * @return \AppBundle\Entity\Team
+     * @return Team
      */
     public function getTeam()
     {
@@ -99,11 +112,11 @@ class GameTeamStats
     /**
      * Set game
      *
-     * @param \AppBundle\Entity\Game $game
+     * @param Game $game
      *
      * @return GameTeamStats
      */
-    public function setGame(\AppBundle\Entity\Game $game = null)
+    public function setGame(Game $game = null)
     {
         $this->game = $game;
 
@@ -113,7 +126,7 @@ class GameTeamStats
     /**
      * Get game
      *
-     * @return \AppBundle\Entity\Game
+     * @return Game
      */
     public function getGame()
     {
