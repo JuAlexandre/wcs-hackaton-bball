@@ -102,4 +102,3 @@ class Club
         return $this->image;
     }
 }
-
