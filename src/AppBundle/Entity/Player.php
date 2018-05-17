@@ -247,4 +247,13 @@ class Player
     {
         return $this->club;
     }
+
+    /**
+     * Get full name
+     * @return string
+     */
+    public function fullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
 }

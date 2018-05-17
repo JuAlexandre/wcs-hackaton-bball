@@ -1,0 +1,27 @@
+{{ form_start(form, { 'action': action }) }}
+    <div class="field">
+        <label class="label">{{ form_label(form.firstName) }}</label>
+        <div class="control">{{ form_widget(form.firstName, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.lastName) }}</label>
+        <div class="control">{{ form_widget(form.lastName, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.age) }}</label>
+        <div class="control">{{ form_widget(form.age, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.shirtNumber) }}</label>
+        <div class="control">{{ form_widget(form.shirtNumber, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.picture) }}</label>
+        <div class="control">{{ form_widget(form.picture, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.club) }}</label>
+        <div class="control select is-fullwidth">{{ form_widget(form.club) }}</div>
+    </div>
+    <button class="button is-link is-fullwidth">{{ submit }}</button>
+{{ form_end(form) }}

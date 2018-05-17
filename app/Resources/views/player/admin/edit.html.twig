@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Joueur',
+        subtitle: 'Modification de <u>' ~ player.fullName ~ '</u>'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-4 is-offset-3">
+                    <div class="box">
+                        {% include 'player/admin/_form.html.twig' with {
+                            'form': edit_form,
+                            'submit': 'Modifier le joueur',
+                            'action': path('admin_player_edit', { 'player': player.id })
+                        } %}
+                    </div>
+                    <ul>
+                        <li><a href="{{ path('admin_player_delete', { 'player': player.id }) }}" class="has-text-danger">Supprimer ce joueur</a></li>
+                        <li><a href="{{ path('admin_player_list') }}">Retourner sur la liste des joueurs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

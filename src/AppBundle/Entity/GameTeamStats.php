@@ -28,7 +28,7 @@ class GameTeamStats
 
     /**
      * @var Game
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Game", inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Game", inversedBy="stats")
      */
     private $game;
 
