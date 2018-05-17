@@ -8,6 +8,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\GameTeamStats;
+use AppBundle\Entity\Team;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,30 +38,39 @@ class Game
     /**
      * @var Team[]
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Team", inversedBy="games")
+     * @Assert\Count(
+     *      min = 2,
+     *      max = 2,
+     *      exactMessage="Vous devez avoir exactement 2 Team."
+     * )
      */
     private $teams;
 
     /**
      * @var boolean
      * @ORM\Column(name="is_pool_game", type="boolean")
+     * @Assert\Type("bool")
      */
     private $isPoolGame;
 
     /**
      * @var \DateTime
      * @ORM\Column(name="begin_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $beginAt;
 
     /**
      * @var boolean
      * @ORM\Column(name="is_finished", type="boolean")
+     * @Assert\Type("bool")
      */
     private $isFinished;
 
     /**
      * @var Stadium
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Stadium", inversedBy="games")
+     * @Assert\NotBlank()
      */
     private $stadium;
 
@@ -77,176 +88,129 @@ class Game
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Set isPoolGame
-     *
-     * @param boolean $isPoolGame
-     *
+     * @param int $id
      * @return Game
      */
-    public function setIsPoolGame($isPoolGame)
+    public function setId(int $id): Game
     {
-        $this->isPoolGame = $isPoolGame;
-
+        $this->id = $id;
         return $this;
     }
 
     /**
-     * Get isPoolGame
-     *
-     * @return boolean
+     * @return GameTeamStats[]
      */
-    public function getIsPoolGame()
-    {
-        return $this->isPoolGame;
-    }
-
-    /**
-     * Set beginAt
-     *
-     * @param \DateTime $beginAt
-     *
-     * @return Game
-     */
-    public function setBeginAt($beginAt)
-    {
-        $this->beginAt = $beginAt;
-
-        return $this;
-    }
-
-    /**
-     * Get beginAt
-     *
-     * @return \DateTime
-     */
-    public function getBeginAt()
-    {
-        return $this->beginAt;
-    }
-
-    /**
-     * Set isFinished
-     *
-     * @param boolean $isFinished
-     *
-     * @return Game
-     */
-    public function setIsFinished($isFinished)
-    {
-        $this->isFinished = $isFinished;
-
-        return $this;
-    }
-
-    /**
-     * Get isFinished
-     *
-     * @return boolean
-     */
-    public function getIsFinished()
-    {
-        return $this->isFinished;
-    }
-
-    /**
-     * Add stat
-     *
-     * @param \AppBundle\Entity\GameTeamStats $stat
-     *
-     * @return Game
-     */
-    public function addStat(\AppBundle\Entity\GameTeamStats $stat)
-    {
-        $this->stats[] = $stat;
-
-        return $this;
-    }
-
-    /**
-     * Remove stat
-     *
-     * @param \AppBundle\Entity\GameTeamStats $stat
-     */
-    public function removeStat(\AppBundle\Entity\GameTeamStats $stat)
-    {
-        $this->stats->removeElement($stat);
-    }
-
-    /**
-     * Get stats
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStats()
+    public function getStats(): array
     {
         return $this->stats;
     }
 
     /**
-     * Add team
-     *
-     * @param \AppBundle\Entity\Team $team
-     *
+     * @param GameTeamStats[] $stats
      * @return Game
      */
-    public function addTeam(\AppBundle\Entity\Team $team)
+    public function setStats(array $stats): Game
     {
-        $this->teams[] = $team;
-
+        $this->stats = $stats;
         return $this;
     }
 
     /**
-     * Remove team
-     *
-     * @param \AppBundle\Entity\Team $team
+     * @return Team[]
      */
-    public function removeTeam(\AppBundle\Entity\Team $team)
-    {
-        $this->teams->removeElement($team);
-    }
-
-    /**
-     * Get teams
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTeams()
+    public function getTeams(): array
     {
         return $this->teams;
     }
 
     /**
-     * Set stadium
-     *
-     * @param \AppBundle\Entity\Stadium $stadium
-     *
+     * @param Team[] $teams
      * @return Game
      */
-    public function setStadium(\AppBundle\Entity\Stadium $stadium = null)
+    public function setTeams(array $teams): Game
     {
-        $this->stadium = $stadium;
-
+        $this->teams = $teams;
         return $this;
     }
 
     /**
-     * Get stadium
-     *
-     * @return \AppBundle\Entity\Stadium
+     * @return bool
      */
-    public function getStadium()
+    public function isPoolGame(): bool
+    {
+        return $this->isPoolGame;
+    }
+
+    /**
+     * @param bool $isPoolGame
+     * @return Game
+     */
+    public function setIsPoolGame(bool $isPoolGame): Game
+    {
+        $this->isPoolGame = $isPoolGame;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBeginAt(): \DateTime
+    {
+        return $this->beginAt;
+    }
+
+    /**
+     * @param \DateTime $beginAt
+     * @return Game
+     */
+    public function setBeginAt(\DateTime $beginAt): Game
+    {
+        $this->beginAt = $beginAt;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFinished(): bool
+    {
+        return $this->isFinished;
+    }
+
+    /**
+     * @param bool $isFinished
+     * @return Game
+     */
+    public function setIsFinished(bool $isFinished): Game
+    {
+        $this->isFinished = $isFinished;
+        return $this;
+    }
+
+    /**
+     * @return Stadium
+     */
+    public function getStadium(): Stadium
     {
         return $this->stadium;
     }
+
+    /**
+     * @param Stadium $stadium
+     * @return Game
+     */
+    public function setStadium(Stadium $stadium): Game
+    {
+        $this->stadium = $stadium;
+        return $this;
+    }
+
 }

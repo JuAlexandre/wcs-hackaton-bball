@@ -29,7 +29,7 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $games = $em->getRepository(Game::class)->findAll();
 
-        return $this->render('admin/game/list.html.twig', [
+        return $this->render('game/admin/list.html.twig', [
            'games' => $games,
         ]);
     }

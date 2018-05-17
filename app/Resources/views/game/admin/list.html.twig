@@ -3,5 +3,40 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-game
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Matchs',
+        subtitle: 'Liste des Matchs'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <!-- Liste des matchs -->
+                <div class="column is-8">
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Stade</th>
+                                <th>Poule ?</th>
+                                <th>Date</th>
+                                <th>Terminé ?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for game in games %}
+                                <tr>
+                                    <th>{{ game.id }}</th>
+                                    <td>{{ game.stadium.city }}</td>
+                                    <td>{% if game.isPoolGame %}Oui{% else %}Non{% endif %}</td>
+                                    <td>{{ game.beginAt|date("m/d/Y à G:H") }}</td>
+                                    <td>{% if game.isFinished %}Oui{% else %}Non{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
