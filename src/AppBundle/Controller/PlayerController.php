@@ -80,6 +80,8 @@ class PlayerController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Le joueur a été modifié');
+
+            return $this->redirectToRoute('admin_player_list');
         }
 
         return $this->render('player/admin/edit.html.twig', [
