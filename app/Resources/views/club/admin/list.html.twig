@@ -24,8 +24,8 @@
                             {% for club in clubs %}
                                 <tr>
                                     <th>{{ club.id }}</th>
-                                    <th>{{ club.name }}</th>
-                                    <th>{{ club.image }}</th>
+                                    <td>{{ club.name }}</td>
+                                    <td><a target=_"blank" href="{{ club.image }}">{{ club.image }}</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
