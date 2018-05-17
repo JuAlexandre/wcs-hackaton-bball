@@ -11,7 +11,7 @@
                         {% include 'team/admin/_form.html.twig' with {
                             'form': edit_form,
                             'submit': 'Modifier l\'équipe',
-                            'action': 'admin_team_edit'
+                            'action': path('admin_team_edit', { 'team': team.id })
                         } %}
                     </div>
                     <ul>

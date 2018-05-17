@@ -73,7 +73,7 @@ class TeamController extends Controller
 
         return $this->render('team/admin/edit.html.twig', [
             'team' => $team,
-            'edit_form'=>$form->createView(),
+            'edit_form' => $form->createView(),
         ]);
     }
 

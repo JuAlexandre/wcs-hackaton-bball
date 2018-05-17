@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Club;
 use AppBundle\Entity\Player;
+use AppBundle\Entity\Team;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -64,7 +65,14 @@ class PlayerType extends AbstractType
                 'required' => true
             ])
             ->add('club', EntityType::class, [
+                'label' => 'Nom du club',
                 'class' => Club::class,
+                'choice_label' => 'name',
+                'required' => true
+            ])
+            ->add('team', EntityType::class, [
+                'label' => 'Nom de l\'équipe pour le championnat',
+                'class' => Team::class,
                 'choice_label' => 'name',
                 'required' => true
             ])
