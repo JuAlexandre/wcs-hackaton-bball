@@ -48,6 +48,12 @@ class Team
     private $visitorGames;
 
     /**
+     * @var Player[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Player", mappedBy="team")
+     */
+    private $players;
+
+    /**
      * Return list of team's games
      * @return AbstractGame[]
      */
@@ -158,5 +164,48 @@ class Team
     public function getVisitorGames(): ?array
     {
         return $this->visitorGames;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add player.
+     *
+     * @param \AppBundle\Entity\Player $player
+     *
+     * @return Team
+     */
+    public function addPlayer(\AppBundle\Entity\Player $player)
+    {
+        $this->players[] = $player;
+
+        return $this;
+    }
+
+    /**
+     * Remove player.
+     *
+     * @param \AppBundle\Entity\Player $player
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePlayer(\AppBundle\Entity\Player $player)
+    {
+        return $this->players->removeElement($player);
+    }
+
+    /**
+     * Get players.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }

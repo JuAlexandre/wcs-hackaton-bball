@@ -163,4 +163,56 @@ abstract class AbstractGame
         $this->visitorTeam = $visitorTeam;
         return $this;
     }
+
+    /**
+     * Add localTeam.
+     *
+     * @param \AppBundle\Entity\Team $localTeam
+     *
+     * @return AbstractGame
+     */
+    public function addLocalTeam(\AppBundle\Entity\Team $localTeam)
+    {
+        $this->localTeam[] = $localTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove localTeam.
+     *
+     * @param \AppBundle\Entity\Team $localTeam
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeLocalTeam(\AppBundle\Entity\Team $localTeam)
+    {
+        return $this->localTeam->removeElement($localTeam);
+    }
+
+    /**
+     * Add visitorTeam.
+     *
+     * @param \AppBundle\Entity\Team $visitorTeam
+     *
+     * @return AbstractGame
+     */
+    public function addVisitorTeam(\AppBundle\Entity\Team $visitorTeam)
+    {
+        $this->visitorTeam[] = $visitorTeam;
+
+        return $this;
+    }
+
+    /**
+     * Remove visitorTeam.
+     *
+     * @param \AppBundle\Entity\Team $visitorTeam
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeVisitorTeam(\AppBundle\Entity\Team $visitorTeam)
+    {
+        return $this->visitorTeam->removeElement($visitorTeam);
+    }
 }

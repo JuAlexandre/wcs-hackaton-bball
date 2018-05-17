@@ -36,16 +36,34 @@ class Team
     private $flag;
 
     /**
-     * @var Game
+     * @var AbstractGame[]
      * @ORM\ManyToOne(targetEntity="AbstractGame", inversedBy="localTeam")
      */
     private $localGames;
 
     /**
-     * @var Game
+     * @var AbstractGame[]
      * @ORM\ManyToOne(targetEntity="AbstractGame", inversedBy="visitorTeam")
      */
     private $visitorGames;
+
+    /**
+     * @var Player[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Player", mappedBy="team")
+     */
+    private $players;
+
+    /**
+     * Return list of team's games
+     * @return AbstractGame[]
+     */
+    public function getGames(): array
+    {
+        return array_merge(
+            $this->getLocalGames(),
+            $this->getVisitorGames()
+        );
+    }
 
     /**
      * Get id.
@@ -105,4 +123,46 @@ class Team
         return $this->flag;
     }
 
+
+    /**
+     * Set localGames.
+     *
+     * @param AbstractGame[]|null $localGames
+     *
+     * @return Team
+     */
+    public function setLocalGames(array $localGames = []): self
+    {
+        $this->localGames = $localGames;
+        return $this;
+    }
+
+    /**
+     * Get localGames.
+     * @return AbstractGame[]|null
+     */
+    public function getLocalGames(): ?array
+    {
+        return $this->localGames;
+    }
+
+    /**
+     * Set visitorGames.
+     * @param AbstractGame[]|null $visitorGames
+     * @return Team
+     */
+    public function setVisitorGames(array $visitorGames = []): self
+    {
+        $this->visitorGames = $visitorGames;
+        return $this;
+    }
+
+    /**
+     * Get visitorGames.
+     * @return AbstractGame[]|null
+     */
+    public function getVisitorGames(): ?array
+    {
+        return $this->visitorGames;
+    }
 }
