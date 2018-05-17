@@ -1,0 +1,63 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Player
+ *
+ * @ORM\Table(name="player")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PlayerRepository")
+ * @UniqueEntity("picture", message="Cette photo est déjà utilisée.")
+ */
+class Player
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=100)
+     */
+    private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=100)
+     */
+    private $lastName;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="age", type="integer")
+     */
+    private $age;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="shirt_number", type="integer")
+     */
+    private $shirtNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string")
+     */
+    private $picture;
+
+
+
+}
