@@ -26,7 +26,7 @@ class ClubController extends Controller
      * List clubs
      * @param Request $req
      * @return Response
-     * @Route("/admin/clubs/", name="admin_club_list")
+     * @Route("/admin/clubs", name="admin_club_list")
      * @Method("GET")
      */
     public function adminList(Request $req): Response
