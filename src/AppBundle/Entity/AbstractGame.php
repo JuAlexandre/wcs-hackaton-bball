@@ -8,6 +8,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 abstract class AbstractGame
 {
     /**
@@ -20,10 +22,12 @@ abstract class AbstractGame
     private $visitorTeam;
     /**
      * @var int
+     * @Assert\Range(min=0, minMessage="Le score de l'équipe locale ne peut pas être négatif.")
      */
     private $localScore;
     /**
      * @var int
+     * @Assert\Range(min=0, minMessage="Le score de l'équipe visiteur ne peut pas être négatif.")
      */
     private $visitorScore;
 
@@ -38,6 +42,9 @@ abstract class AbstractGame
         $this->visitorTeam = $visitorTeam;
     }
 
+    /**
+     * @return Team|null
+     */
     public function getResult(): ?Team
     {
         return ($this->getLocalScore() > $this->getVisitorScore()) ? $this->getLocalTeam() : $this->getVisitorTeam();
@@ -114,6 +121,4 @@ abstract class AbstractGame
         $this->visitorScore = $visitorScore;
         return $this;
     }
-
-
 }

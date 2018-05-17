@@ -10,8 +10,13 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpKernel\Tests\Controller;
 
-class MatchController extends Controller
+/***
+ * Class GameController
+ * @package AppBundle\Controller
+ */
+class GameController extends Controller
 {
+
     public function adminList()
     {
 
