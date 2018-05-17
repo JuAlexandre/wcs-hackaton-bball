@@ -8,7 +8,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\AbstractGame;
+use AppBundle\Entity\Game;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,9 +27,9 @@ class GameController extends Controller
     public function adminList()
     {
         $em = $this->getDoctrine()->getManager();
-        $games = $em->getRepository(AbstractGame::class)->findAll();
+        $games = $em->getRepository(Game::class)->findAll();
 
-        return $this->render('admin/game/index.html.twig', [
+        return $this->render('admin/game/list.html.twig', [
            'games' => $games,
         ]);
     }

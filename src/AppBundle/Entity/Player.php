@@ -65,6 +65,12 @@ class Player
     private $team;
 
     /**
+     * @var Club
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Club", inversedBy="players")
+     */
+    private $club;
+
+    /**
      * Get id.
      *
      * @return int
@@ -216,5 +222,29 @@ class Player
     public function getTeam()
     {
         return $this->team;
+    }
+
+    /**
+     * Set club
+     *
+     * @param \AppBundle\Entity\Club $club
+     *
+     * @return Player
+     */
+    public function setClub(\AppBundle\Entity\Club $club = null)
+    {
+        $this->club = $club;
+
+        return $this;
+    }
+
+    /**
+     * Get club
+     *
+     * @return \AppBundle\Entity\Club
+     */
+    public function getClub()
+    {
+        return $this->club;
     }
 }

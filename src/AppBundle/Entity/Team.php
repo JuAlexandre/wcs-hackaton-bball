@@ -14,7 +14,6 @@ class Team
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -23,29 +22,15 @@ class Team
 
     /**
      * @var string
-     *
      * @ORM\Column(name="name", type="string", length=128, unique=true)
      */
     private $name;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="flag", type="string", length=255, unique=true)
      */
     private $flag;
-
-    /**
-     * @var AbstractGame[]
-     * @ORM\ManyToOne(targetEntity="AbstractGame", inversedBy="localTeam")
-     */
-    private $localGames;
-
-    /**
-     * @var AbstractGame[]
-     * @ORM\ManyToOne(targetEntity="AbstractGame", inversedBy="visitorTeam")
-     */
-    private $visitorGames;
 
     /**
      * @var Player[]
@@ -54,21 +39,30 @@ class Team
     private $players;
 
     /**
-     * Return list of team's games
-     * @return AbstractGame[]
+     * @var Game[]
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game", mappedBy="teams")
      */
-    public function getGames(): array
+    private $games;
+
+    /**
+     * @var Game[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GameTeamStats", mappedBy="team")
+     */
+    private $scores;
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        return array_merge(
-            $this->getLocalGames(),
-            $this->getVisitorGames()
-        );
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +70,7 @@ class Team
     }
 
     /**
-     * Set name.
+     * Set name
      *
      * @param string $name
      *
@@ -90,7 +84,7 @@ class Team
     }
 
     /**
-     * Get name.
+     * Get name
      *
      * @return string
      */
@@ -100,7 +94,7 @@ class Team
     }
 
     /**
-     * Set flag.
+     * Set flag
      *
      * @param string $flag
      *
@@ -114,7 +108,7 @@ class Team
     }
 
     /**
-     * Get flag.
+     * Get flag
      *
      * @return string
      */
@@ -123,58 +117,8 @@ class Team
         return $this->flag;
     }
 
-
     /**
-     * Set localGames.
-     *
-     * @param AbstractGame[]|null $localGames
-     *
-     * @return Team
-     */
-    public function setLocalGames(array $localGames = []): self
-    {
-        $this->localGames = $localGames;
-        return $this;
-    }
-
-    /**
-     * Get localGames.
-     * @return AbstractGame[]|null
-     */
-    public function getLocalGames(): ?array
-    {
-        return $this->localGames;
-    }
-
-    /**
-     * Set visitorGames.
-     * @param AbstractGame[]|null $visitorGames
-     * @return Team
-     */
-    public function setVisitorGames(array $visitorGames = []): self
-    {
-        $this->visitorGames = $visitorGames;
-        return $this;
-    }
-
-    /**
-     * Get visitorGames.
-     * @return AbstractGame[]|null
-     */
-    public function getVisitorGames(): ?array
-    {
-        return $this->visitorGames;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add player.
+     * Add player
      *
      * @param \AppBundle\Entity\Player $player
      *
@@ -188,24 +132,90 @@ class Team
     }
 
     /**
-     * Remove player.
+     * Remove player
      *
      * @param \AppBundle\Entity\Player $player
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
     public function removePlayer(\AppBundle\Entity\Player $player)
     {
-        return $this->players->removeElement($player);
+        $this->players->removeElement($player);
     }
 
     /**
-     * Get players.
+     * Get players
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    /**
+     * Add game
+     *
+     * @param \AppBundle\Entity\Game $game
+     *
+     * @return Team
+     */
+    public function addGame(\AppBundle\Entity\Game $game)
+    {
+        $this->games[] = $game;
+
+        return $this;
+    }
+
+    /**
+     * Remove game
+     *
+     * @param \AppBundle\Entity\Game $game
+     */
+    public function removeGame(\AppBundle\Entity\Game $game)
+    {
+        $this->games->removeElement($game);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
+
+    /**
+     * Add score
+     *
+     * @param \AppBundle\Entity\GameTeamStats $score
+     *
+     * @return Team
+     */
+    public function addScore(\AppBundle\Entity\GameTeamStats $score)
+    {
+        $this->scores[] = $score;
+
+        return $this;
+    }
+
+    /**
+     * Remove score
+     *
+     * @param \AppBundle\Entity\GameTeamStats $score
+     */
+    public function removeScore(\AppBundle\Entity\GameTeamStats $score)
+    {
+        $this->scores->removeElement($score);
+    }
+
+    /**
+     * Get scores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScores()
+    {
+        return $this->scores;
     }
 }

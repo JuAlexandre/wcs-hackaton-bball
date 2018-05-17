@@ -33,7 +33,7 @@ class ClubController extends Controller
     {
         return $this->render('club/admin/list.html.twig', [
             'create_form' => $this->createForm(ClubType::class)->createView(),
-            'clubs' => $this->getDoctrine()->getManager()->getRepository(Club::class)->findAll()
+            'clubs' => $this->getDoctrine()->getRepository(Club::class)->findAll()
         ]);
     }
 

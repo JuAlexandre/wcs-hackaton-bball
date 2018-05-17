@@ -11,6 +11,7 @@
     <section class="section">
         <div class="container is-fluid">
             <div class="columns">
+                <!-- Liste des joueurs -->
                 <div class="column is-8">
                     <table class="table is-striped is-fullwidth">
                         <thead>
@@ -18,9 +19,10 @@
                                 <th>#</th>
                                 <th>Prénom</th>
                                 <th>Nom</th>
-                                <th>Age</th>
-                                <th>Numéro de maillot</th>
                                 <th>Photo</th>
+                                <th>Age</th>
+                                <th>N° Maillot</th>
+                                <th>Club</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,14 +31,17 @@
                                     <th>{{ player.id }}</th>
                                     <td>{{ player.firstName }}</td>
                                     <td>{{ player.lastName }}</td>
+                                    <td><a href="{{ player.picture }}" target="_blank">{{ player.picture }}</a></td>
                                     <td>{{ player.age }}</td>
                                     <td>{{ player.shirtNumber }}</td>
-                                    <td><a href="{{ player.picture }}" target="_blank">{{ player.picture }}</a></td>
+                                    <td>{{ player.club.name }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Créer un joueur -->
                 <div class="column">
                     <div class="box">
                         {{ form_start(create_form, { 'action': path('admin_player_create') }) }}
@@ -59,6 +64,10 @@
                             <div class="field">
                                 <label class="label">{{ form_label(create_form.picture) }}</label>
                                 <div class="control">{{ form_widget(create_form.picture, { 'attr': { 'class': 'input' } }) }}</div>
+                            </div>
+                            <div class="field">
+                                <label class="label">{{ form_label(create_form.club) }}</label>
+                                <div class="control select is-fullwidth">{{ form_widget(create_form.club) }}</div>
                             </div>
                             <button class="button is-link is-fullwidth">Créer le joueur</button>
                         {{ form_end(create_form) }}

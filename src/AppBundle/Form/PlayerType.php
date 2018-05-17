@@ -9,7 +9,9 @@
 namespace AppBundle\Form;
 
 
+use AppBundle\Entity\Club;
 use AppBundle\Entity\Player;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -59,6 +61,11 @@ class PlayerType extends AbstractType
                     'placeholder' => 'Photo du joueur'
                 ],
                 'label' => 'Photo',
+                'required' => true
+            ])
+            ->add('club', EntityType::class, [
+                'class' => Club::class,
+                'choice_label' => 'name',
                 'required' => true
             ])
         ;

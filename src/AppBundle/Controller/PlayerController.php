@@ -36,7 +36,7 @@ class PlayerController extends Controller
     {
         return $this->render('player/admin/list.html.twig', [
             'create_form' => $this->createForm(PlayerType::class)->createView(),
-            'players' => $this->getDoctrine()->getManager()->getRepository(Player::class)->findAll(),
+            'players' => $this->getDoctrine()->getRepository(Player::class)->findAll(),
         ]);
     }
 

@@ -43,6 +43,11 @@ class Club
      */
     private $image;
 
+    /**
+     * @var Player[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Player", mappedBy="club")
+     */
+    private $players;
 
     /**
      * Get id
@@ -100,5 +105,46 @@ class Club
     public function getImage()
     {
         return $this->image;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add player
+     *
+     * @param \AppBundle\Entity\Player $player
+     *
+     * @return Club
+     */
+    public function addPlayer(\AppBundle\Entity\Player $player)
+    {
+        $this->players[] = $player;
+
+        return $this;
+    }
+
+    /**
+     * Remove player
+     *
+     * @param \AppBundle\Entity\Player $player
+     */
+    public function removePlayer(\AppBundle\Entity\Player $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
     }
 }

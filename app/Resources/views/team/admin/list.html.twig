@@ -1,51 +1,49 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Clubs{% endblock %}
-
 {% block body %}
     {% include 'admin/_page_heading.html.twig' with {
-        title: 'Clubs',
-        subtitle: 'Liste des clubs'
+        title: 'Equipes',
+        subtitle: 'Liste des équipes'
     } %}
 
     <section class="section">
         <div class="container is-fluid">
             <div class="columns">
-                <!-- Liste des clubs -->
+                <!-- Liste des équipes -->
                 <div class="column is-8">
                     <table class="table is-striped is-fullwidth">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Nom</th>
-                                <th>Image</th>
+                                <th>Drapeau</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for club in clubs %}
-                                <tr>
-                                    <th>{{ club.id }}</th>
-                                    <td>{{ club.name }}</td>
-                                    <td><a target=_"blank" href="{{ club.image }}">{{ club.image }}</a></td>
-                                </tr>
-                            {% endfor %}
+                        {% for team in teams %}
+                            <tr>
+                                <th>{{ team.id }}</th>
+                                <td>{{ team.name }}</td>
+                                <td><a href="{{ team.flag }}" target="_blank">{{ team.flag }}</a></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Créer un club -->
+                <!-- Création d'une équipe -->
                 <div class="column">
                     <div class="box">
-                        {{ form_start(create_form, { 'action': path('admin_club_create') }) }}
+                        {{ form_start(create_form, { 'action': path('admin_team_create') }) }}
                             <div class="field">
                                 <label class="label">{{ form_label(create_form.name) }}</label>
                                 <div class="control">{{ form_widget(create_form.name, { 'attr': { 'class': 'input' } }) }}</div>
                             </div>
                             <div class="field">
-                                <label class="label">{{ form_label(create_form.image) }}</label>
-                                <div class="control">{{ form_widget(create_form.image, { 'attr': { 'class': 'input' } }) }}</div>
+                                <label class="label">{{ form_label(create_form.flag) }}</label>
+                                <div class="control">{{ form_widget(create_form.flag, { 'attr': { 'class': 'input' } }) }}</div>
                             </div>
-                            <button class="button is-link is-fullwidth">Créer le club</button>
+                            <button class="button is-link is-fullwidth">Créer l'équipe</button>
                         {{ form_end(create_form) }}
                     </div>
                 </div>

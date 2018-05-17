@@ -3,16 +3,16 @@
  * Created by PhpStorm.
  * User: wilder16
  * Date: 17/05/18
- * Time: 14:55
+ * Time: 14:49
  */
 
 namespace AppBundle\Repository;
 
 /**
- * Class EliminationGameRepository
+ * Class GameRepository
  * @package AppBundle\Repository
  */
-class EliminationGameRepository extends \Doctrine\ORM\EntityRepository
+class GameRepository extends \Doctrine\ORM\EntityRepository
 {
 
 }
