@@ -1,0 +1,11 @@
+{{ form_start(form, { 'action': action }) }}
+    <div class="field">
+        <label class="label">{{ form_label(form.name) }}</label>
+        <div class="control">{{ form_widget(form.name, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.image) }}</label>
+        <div class="control">{{ form_widget(form.image, { 'attr': { 'class': 'input' } }) }}</div>
+    </div>
+    <button class="button is-link is-fullwidth">{{ submit }}</button>
+{{ form_end(form) }}
