@@ -59,6 +59,12 @@ class Player
     private $picture;
 
     /**
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="players")
+     */
+    private $team;
+
+    /**
      * Get id.
      *
      * @return int
@@ -186,5 +192,29 @@ class Player
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    /**
+     * Set team.
+     *
+     * @param \AppBundle\Entity\Team|null $team
+     *
+     * @return Player
+     */
+    public function setTeam(\AppBundle\Entity\Team $team = null)
+    {
+        $this->team = $team;
+
+        return $this;
+    }
+
+    /**
+     * Get team.
+     *
+     * @return \AppBundle\Entity\Team|null
+     */
+    public function getTeam()
+    {
+        return $this->team;
     }
 }
