@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Clubs',
+        subtitle: 'Liste des clubs'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <!-- Liste des clubs -->
+                <div class="column is-8">
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for club in clubs %}
+                                <tr>
+                                    <th>{{ club.id }}</th>
+                                    <td>{{ club.name }}</td>
+                                    <td><a target=_"blank" href="{{ club.image }}">Voir l'image du club</a></td>
+                                    <td>
+                                        <a href="{{ path('admin_club_edit', { 'club': club.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_club_delete', { 'club': club.id }) }}" class="has-text-danger">Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Créer un club -->
+                <div class="column">
+                    <div class="box">
+                        {% include 'club/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer le club',
+                            'action': path('admin_club_create')
+                        } %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

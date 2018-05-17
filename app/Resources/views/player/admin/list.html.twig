@@ -1,0 +1,62 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Joueurs',
+        subtitle: 'Liste des joueurs'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <!-- Liste des joueurs -->
+                <div class="column is-8">
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Photo</th>
+                                <th>Age</th>
+                                <th>N° Maillot</th>
+                                <th>Club</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for player in players %}
+                                <tr>
+                                    <th>{{ player.id }}</th>
+                                    <td>{{ player.firstName }}</td>
+                                    <td>{{ player.lastName }}</td>
+                                    <td><a href="{{ player.picture }}" target="_blank">Voir la photo</a></td>
+                                    <td>{{ player.age }}</td>
+                                    <td>{{ player.shirtNumber }}</td>
+                                    <td>{{ player.club.name }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_player_edit', { 'player': player.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_player_delete', { 'player': player.id }) }}" class="has-text-danger">Supprimer</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Créer un joueur -->
+                <div class="column">
+                    <div class="box">
+                        {% include 'player/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer le joueur',
+                            'action': path('admin_player_create')
+                        } %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
