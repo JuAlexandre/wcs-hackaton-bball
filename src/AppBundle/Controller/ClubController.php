@@ -59,4 +59,15 @@ class ClubController extends Controller
 
         return $this->redirectToRoute('admin_club_list');
     }
+
+    /**
+     *
+     * @param Club $club
+     * @param Request $req
+     * @return Response
+     */
+    public function adminEdit(Club $club, Request $req): Response
+    {
+
+    }
 }
