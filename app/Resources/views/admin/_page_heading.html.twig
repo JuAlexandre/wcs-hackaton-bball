@@ -1,0 +1,23 @@
+<section class="hero is-link">
+    <div class="hero-body">
+        <div class="container is-fluid">
+            <h1 class="title">{{ title }}</h1>
+            <h2 class="subtitle">{{ subtitle | raw }}</h2>
+        </div>
+    </div>
+    {% if (menu is defined and (menu|length) > 0) and (displayMenu is not defined or displayMenu) %}
+        <div class="hero-foot">
+            <nav class="tabs is-boxed">
+                <div class="container is-fluid">
+                    <ul>
+                        {% for item in menu %}
+                            <li {% if app.request.attributes.get('_route') == item.route %}class="is-active"{% endif %}>
+                                <a href="{{ path(item.route) }}">{{ item.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    {% endif %}
+</section>

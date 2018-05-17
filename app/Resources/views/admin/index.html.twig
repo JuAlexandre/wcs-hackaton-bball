@@ -1,0 +1,23 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Administration',
+        subtitle: 'Good Luck & Have Fun'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <ul>
+                <li><a href="https://github.com/SteadyB">Accéder au profil GitHub de <b>SteadyB</b>.</a></li>
+                <li><a href="https://github.com/cyrildo">Accéder au profil GitHub de <b>cyrildo</b>.</a></li>
+                <li><a href="https://github.com/nooneexpectme">Accéder au profil GitHub de <b>nooneexpectme</b>.</a></li>
+                <li><a href="https://github.com/jeromelegrand">Accéder au profil GitHub de <b>jeromelegrand</b>.</a></li>
+                <li><a href="https://github.com/JuAlexandre">Accéder au profil GitHub de <b>JuAlexandre</b>.</a></li>
+                <li><a href="https://github.com/nooneexpectme/wcs-hackaton-bbal">Accéder au dépôt du projet.</a></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
