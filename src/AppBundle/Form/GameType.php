@@ -24,14 +24,14 @@ class GameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('local_team', EntityType::class, [
+            ->add('localTeam', EntityType::class, [
                 'class' => Team::class,
                 'choice_label' => 'name',
                 'label' => 'Equipe locale',
                 'required' => true,
                 'mapped' => false
             ])
-            ->add('visitor_team', EntityType::class, [
+            ->add('visitorTeam', EntityType::class, [
                 'class' => Team::class,
                 'choice_label' => 'name',
                 'label' => 'Equipe invitée',
