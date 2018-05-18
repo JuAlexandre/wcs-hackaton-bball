@@ -3,6 +3,10 @@
 {% block title %}Modification du stade "{{ stadium.city }}"{% endblock %}
 
 {% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Stade',
+        subtitle: 'Modification de <u>' ~ stadium.city ~ '</u>'
+    } %}
     <section class="section">
         <div class="container is-fluid">
             <div class="columns">
