@@ -80,4 +80,28 @@ class GameController extends Controller
 
         return $this->redirectToRoute('admin_game_list');
     }
+
+    /**
+     * @param Game $game
+     * @param Request $req
+     * @return Response
+     * @Route("/admin/game/{game}/edit", name="admin_game_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function adminEdit(Game $game, Request $req): Response
+    {
+        $editForm = $this->createForm(GameType::class, $game);
+        $editForm->handleRequest($req);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Match modifié');
+            return $this->redirectToRoute('admin_game_list');
+        }
+
+        return $this->render('game/admin/edit.html.twig', [
+            'edit_form' => $editForm->createView(),
+            'game' => $game
+        ]);
+    }
 }

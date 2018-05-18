@@ -2,6 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Game;
+use AppBundle\Entity\GameTeamStats;
+use AppBundle\Entity\Player;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,24 +43,25 @@ class Team
     private $players;
 
     /**
-     * @var Game[]
+     * @var Games[]
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game", mappedBy="teams")
      */
     private $games;
 
     /**
-     * @var Game[]
+     * @var Scores[]
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\GameTeamStats", mappedBy="team")
      */
     private $scores;
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players = new ArrayCollection();
+        $this->games = new ArrayCollection();
+        $this->scores = new ArrayCollection();
     }
 
     /**
@@ -120,11 +125,11 @@ class Team
     /**
      * Add player
      *
-     * @param \AppBundle\Entity\Player $player
+     * @param Player $player
      *
      * @return Team
      */
-    public function addPlayer(\AppBundle\Entity\Player $player)
+    public function addPlayer(Player $player)
     {
         $this->players[] = $player;
 
@@ -134,9 +139,9 @@ class Team
     /**
      * Remove player
      *
-     * @param \AppBundle\Entity\Player $player
+     * @param Player $player
      */
-    public function removePlayer(\AppBundle\Entity\Player $player)
+    public function removePlayer(Player $player)
     {
         $this->players->removeElement($player);
     }
@@ -154,11 +159,11 @@ class Team
     /**
      * Add game
      *
-     * @param \AppBundle\Entity\Game $game
+     * @param Game $game
      *
      * @return Team
      */
-    public function addGame(\AppBundle\Entity\Game $game)
+    public function addGame(Game $game)
     {
         $this->games[] = $game;
 
@@ -168,9 +173,9 @@ class Team
     /**
      * Remove game
      *
-     * @param \AppBundle\Entity\Game $game
+     * @param Game $game
      */
-    public function removeGame(\AppBundle\Entity\Game $game)
+    public function removeGame(Game $game)
     {
         $this->games->removeElement($game);
     }
@@ -188,11 +193,11 @@ class Team
     /**
      * Add score
      *
-     * @param \AppBundle\Entity\GameTeamStats $score
+     * @param GameTeamStats $score
      *
      * @return Team
      */
-    public function addScore(\AppBundle\Entity\GameTeamStats $score)
+    public function addScore(GameTeamStats $score)
     {
         $this->scores[] = $score;
 
@@ -202,9 +207,9 @@ class Team
     /**
      * Remove score
      *
-     * @param \AppBundle\Entity\GameTeamStats $score
+     * @param GameTeamStats $score
      */
-    public function removeScore(\AppBundle\Entity\GameTeamStats $score)
+    public function removeScore(GameTeamStats $score)
     {
         $this->scores->removeElement($score);
     }

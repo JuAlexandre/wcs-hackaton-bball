@@ -36,7 +36,7 @@ class Game
     private $stats;
 
     /**
-     * @var Team[]
+     * @var Teams[]
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Team", inversedBy="games")
      * @Assert\Count(
      *      min = 2,
