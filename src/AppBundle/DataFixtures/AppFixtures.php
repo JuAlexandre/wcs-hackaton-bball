@@ -61,14 +61,24 @@ class AppFixtures extends Fixture
         }
 
         // Create teams (name, flag, pool)
-        $teams = [];
-        for ($i=0; $i < 16; $i++) {
-            $teams[] = [
-                'team' . $i,
-                'flag' . $i,
-                $this->getReference('pool' . rand(0, count($pools)-1))
-            ];
-        }
+        $teams = [
+            ['Argentine', 'AR.png', $this->getReference('pool1')],
+            ['Australie', 'Au.png', $this->getReference('pool1')],
+            ['France', 'BL.png', $this->getReference('pool1')],
+            ['Canada', 'CA.png', $this->getReference('pool1')],
+            ['Chili', 'CL.png', $this->getReference('pool2')],
+            ['Chine', 'CN.png', $this->getReference('pool2')],
+            ['Allemagne', 'DE.png', $this->getReference('pool2')],
+            ['Danemark', 'DK.png', $this->getReference('pool2')],
+            ['Espagne', 'ES.png', $this->getReference('pool3')],
+            ['Finlande', 'FI.png', $this->getReference('pool3')],
+            ['Grèce', 'GR.png', $this->getReference('pool3')],
+            ['Jamaïque', 'JM.png', $this->getReference('pool3')],
+            ['Japon', 'JP.png', $this->getReference('pool0')],
+            ['Portugal', 'PT.png', $this->getReference('pool0')],
+            ['Russie', 'RU.png', $this->getReference('pool0')],
+            ['Suède', 'SE.png', $this->getReference('pool0')],
+        ];
 
         $i = 0;
         foreach ($teams as $teamEntry) {
