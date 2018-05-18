@@ -28,15 +28,13 @@ class GameType extends AbstractType
                 'class' => Team::class,
                 'choice_label' => 'name',
                 'label' => 'Equipe locale',
-                'required' => true,
-                'mapped' => false
+                'required' => true
             ])
             ->add('visitorTeam', EntityType::class, [
                 'class' => Team::class,
                 'choice_label' => 'name',
                 'label' => 'Equipe invitée',
-                'required' => true,
-                'mapped' => false
+                'required' => true
             ])
             ->add('stadium', EntityType::class, [
                 'class' => Stadium::class,

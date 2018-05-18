@@ -38,7 +38,7 @@ class Game
 
     /**
      * @var int
-     * @ORM\Column(name="visitor_score", type="integer")
+     * @ORM\Column(name="visitor_score", type="integer", nullable=true)
      */
     private $visitorScore;
 
@@ -52,7 +52,7 @@ class Game
 
     /**
      * @var int
-     * @ORM\Column(name="local_score", type="integer")
+     * @ORM\Column(name="local_score", type="integer", nullable=true)
      */
     private $localScore;
 
