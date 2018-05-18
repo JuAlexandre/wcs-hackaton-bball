@@ -106,7 +106,7 @@ class AppFixtures extends Fixture
                 rand(0, 99),
                 $this->getReference('club' . rand(0, count($clubs)-1)),
                 $this->getReference('team' . rand(0, count($teams)-1)),
-                'picture' . $i
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5b0BEo3tPAeRcAmtCQFccN4lxAIEOe2BMbHCAoFkl_2DxMWkrug'
             ];
         }
 
