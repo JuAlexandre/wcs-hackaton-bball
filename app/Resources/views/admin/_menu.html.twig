@@ -3,16 +3,15 @@
         <p class="menu-label">Administration</p>
         <ul class="menu-list">
             <li><a href="{{ path('admin_index') }}">Accueil</a></li>
+        </ul>
+        <p class="menu-label">Championnat</p>
+        <ul class="menu-list">
             <li><a href="{{ path('admin_club_list') }}">Clubs</a></li>
+            <li><a href="{{ path('admin_pool_list') }}">Poules</a></li>
+            <li><a href="{{ path('admin_team_list') }}">Equipes</a></li>
             <li><a href="{{ path('admin_player_list') }}">Joueurs</a></li>
-            <li>
-                <a href="#">Championnat</a>
-                <ul>
-                    <li><a href="{{ path('admin_team_list') }}">Equipes</a></li>
-                    <li><a href="#">Poules</a></li>
-                    <li><a href="#">Matches</a></li>
-                </ul>
-            </li>
+            <li><a href="{{ path('admin_stadium_list') }}">Stades</a></li>
+            <li><a href="{{ path('admin_game_list') }}">Matches</a></li>
         </ul>
     </aside>
 </section>

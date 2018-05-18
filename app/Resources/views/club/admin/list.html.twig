@@ -19,6 +19,7 @@
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th>Image</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,7 +27,11 @@
                                 <tr>
                                     <th>{{ club.id }}</th>
                                     <td>{{ club.name }}</td>
-                                    <td><a target=_"blank" href="{{ club.image }}">{{ club.image }}</a></td>
+                                    <td><a target=_"blank" href="{{ club.image }}">Voir l'image du club</a></td>
+                                    <td>
+                                        <a href="{{ path('admin_club_edit', { 'club': club.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_club_delete', { 'club': club.id }) }}" class="has-text-danger">Supprimer</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -36,17 +41,11 @@
                 <!-- Créer un club -->
                 <div class="column">
                     <div class="box">
-                        {{ form_start(create_form, { 'action': path('admin_club_create') }) }}
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.name) }}</label>
-                                <div class="control">{{ form_widget(create_form.name, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.image) }}</label>
-                                <div class="control">{{ form_widget(create_form.image, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <button class="button is-link is-fullwidth">Créer le club</button>
-                        {{ form_end(create_form) }}
+                        {% include 'club/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer le club',
+                            'action': path('admin_club_create')
+                        } %}
                     </div>
                 </div>
             </div>

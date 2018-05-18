@@ -1,5 +1,7 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block title %}Liste des équipes{% endblock %}
+
 {% block body %}
     {% include 'admin/_page_heading.html.twig' with {
         title: 'Equipes',
@@ -17,6 +19,8 @@
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th>Drapeau</th>
+                                <th>Poule</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -25,6 +29,11 @@
                                 <th>{{ team.id }}</th>
                                 <td>{{ team.name }}</td>
                                 <td><a href="{{ team.flag }}" target="_blank">{{ team.flag }}</a></td>
+                                <td>{{ team.pool.name }}</td>
+                                <td>
+                                    <a href="{{ path('admin_team_edit', { 'team': team.id }) }}">Modifier</a>
+                                    <a href="{{ path('admin_team_delete', { 'team': team.id }) }}" class="has-text-danger">Supprimer</a>
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -34,17 +43,11 @@
                 <!-- Création d'une équipe -->
                 <div class="column">
                     <div class="box">
-                        {{ form_start(create_form, { 'action': path('admin_team_create') }) }}
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.name) }}</label>
-                                <div class="control">{{ form_widget(create_form.name, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <div class="field">
-                                <label class="label">{{ form_label(create_form.flag) }}</label>
-                                <div class="control">{{ form_widget(create_form.flag, { 'attr': { 'class': 'input' } }) }}</div>
-                            </div>
-                            <button class="button is-link is-fullwidth">Créer l'équipe</button>
-                        {{ form_end(create_form) }}
+                        {% include 'team/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer l\'équipe',
+                            'action': path('admin_team_create')
+                        } %}
                     </div>
                 </div>
             </div>

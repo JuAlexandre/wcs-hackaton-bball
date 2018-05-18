@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        'title': 'Poules',
+        'subtitle': 'Liste des poules'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-8">
+                    <table class="table is-fullwidth is-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pool in pools %}
+                                <tr>
+                                    <th>{{ pool.id }}</th>
+                                    <td>{{ pool.name }}</td>
+                                    <td>
+                                        <a href="{{ path('admin_pool_edit', { 'pool': pool.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_pool_delete', { 'pool': pool.id }) }}" class="has-text-danger">Supprimer</a>                                            </li>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column">
+                    <div class="box">
+                        {% include 'pool/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer la poule',
+                            'action': path('admin_pool_create')
+                        } %}
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

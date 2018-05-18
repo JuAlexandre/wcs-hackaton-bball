@@ -9,6 +9,13 @@
         <link rel="stylesheet" href="{{ asset('build/css/style.css') }}"/>
     </head>
     <body>
+        {% include 'app/_page_heading.html.twig' with {
+            menu: [
+                { route: 'app_index', name: 'Matches' },
+                { route: 'app_team_list', name: 'Pays' },
+                { route: 'app_player_list', name: 'Joueurs' }
+            ]
+        } %}
         {% block body %}{% endblock %}
 
         <script type="text/javascript" src="{{ asset('build/js/app.js') }}"></script>

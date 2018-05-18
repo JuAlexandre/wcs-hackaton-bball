@@ -62,7 +62,19 @@ class TeamController extends Controller
      */
     public function adminEdit(Team $team, Request $req): Response
     {
+        $form = $this->createForm(TeamType::class, $team);
+        $form->handleRequest($req);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', "L'équipe a été modifiée");
+            return $this->redirectToRoute('admin_team_list');
+        }
+
+        return $this->render('team/admin/edit.html.twig', [
+            'team' => $team,
+            'edit_form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -74,6 +86,22 @@ class TeamController extends Controller
      */
     public function adminDelete(Team $team, Request $req): Response
     {
-
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($team);
+        $em->flush();
+        $this->addFlash('success', 'Equipe supprimée');
+        return $this->redirectToRoute('admin_team_list');
     }
+
+    /**
+     * @return Response
+     * @Route("/teams", name="app_team_list")
+     */
+    public function list(): Response
+    {
+        return $this->render('team/app/list.html.twig', [
+            'teams' => $this->getDoctrine()->getRepository(Team::class)->findAll(),
+        ]);
+    }
+
 }

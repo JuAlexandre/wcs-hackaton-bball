@@ -10,7 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="player")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlayerRepository")
- * @UniqueEntity("picture", message="Cette photo est déjà utilisée.")
  */
 class Player
 {
@@ -246,5 +245,14 @@ class Player
     public function getClub()
     {
         return $this->club;
+    }
+
+    /**
+     * Get full name
+     * @return string
+     */
+    public function fullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }

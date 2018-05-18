@@ -8,6 +8,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\GameTeamStats;
+use AppBundle\Entity\Team;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,53 +30,59 @@ class Game
     private $id;
 
     /**
-     * @var GameTeamStats[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GameTeamStats", mappedBy="game")
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="gamesVisitor")
+     * @Assert\NotBlank(message="Vous devez sélectionner une équipe #1.")
      */
-    private $stats;
+    private $visitorTeam;
 
     /**
-     * @var Team[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Team", inversedBy="games")
+     * @var int
+     * @ORM\Column(name="visitor_score", type="integer", nullable=true)
      */
-    private $teams;
+    private $visitorScore;
+
+    /**
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="gamesLocal")
+     * @Assert\NotBlank(message="Vous devez sélectionner une équipe #2.")
+     * @Assert\NotEqualTo(propertyPath="visitorTeam", message="Vous devez sélectionner deux équipes différentes.")
+     */
+    private $localTeam;
+
+    /**
+     * @var int
+     * @ORM\Column(name="local_score", type="integer", nullable=true)
+     */
+    private $localScore;
 
     /**
      * @var boolean
      * @ORM\Column(name="is_pool_game", type="boolean")
+     * @Assert\Type("bool")
      */
     private $isPoolGame;
 
     /**
+     * @var Stadium
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Stadium", inversedBy="games")
+     * @Assert\NotBlank()
+     */
+    private $stadium;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="begin_at", type="datetime")
+     * @Assert\DateTime()
      */
     private $beginAt;
 
     /**
      * @var boolean
      * @ORM\Column(name="is_finished", type="boolean")
+     * @Assert\Type("bool")
      */
     private $isFinished;
-
-    /**
-     * @var Stadium
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Stadium", inversedBy="games")
-     */
-    private $stadium;
-
-    /**
-     * Game constructor.
-     * @param Team $local
-     * @param Team $visitor
-     */
-    public function __construct(Team $local, Team $visitor)
-    {
-        $this->teams = [
-            $local,
-            $visitor
-        ];
-    }
 
     /**
      * Get id
@@ -159,71 +167,51 @@ class Game
     }
 
     /**
-     * Add stat
+     * Set teamVisitor
      *
-     * @param \AppBundle\Entity\GameTeamStats $stat
+     * @param \AppBundle\Entity\Team $teamVisitor
      *
      * @return Game
      */
-    public function addStat(\AppBundle\Entity\GameTeamStats $stat)
+    public function setTeamVisitor(\AppBundle\Entity\Team $teamVisitor = null)
     {
-        $this->stats[] = $stat;
+        $this->teamVisitor = $teamVisitor;
 
         return $this;
     }
 
     /**
-     * Remove stat
+     * Get teamVisitor
      *
-     * @param \AppBundle\Entity\GameTeamStats $stat
+     * @return \AppBundle\Entity\Team
      */
-    public function removeStat(\AppBundle\Entity\GameTeamStats $stat)
+    public function getTeamVisitor()
     {
-        $this->stats->removeElement($stat);
+        return $this->teamVisitor;
     }
 
     /**
-     * Get stats
+     * Set teamLocal
      *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getStats()
-    {
-        return $this->stats;
-    }
-
-    /**
-     * Add team
-     *
-     * @param \AppBundle\Entity\Team $team
+     * @param \AppBundle\Entity\Team $teamLocal
      *
      * @return Game
      */
-    public function addTeam(\AppBundle\Entity\Team $team)
+    public function setTeamLocal(\AppBundle\Entity\Team $teamLocal = null)
     {
-        $this->teams[] = $team;
+        $this->teamLocal = $teamLocal;
 
         return $this;
     }
 
     /**
-     * Remove team
+     * Get teamLocal
      *
-     * @param \AppBundle\Entity\Team $team
+     * @return \AppBundle\Entity\Team
      */
-    public function removeTeam(\AppBundle\Entity\Team $team)
+    public function getTeamLocal()
     {
-        $this->teams->removeElement($team);
-    }
-
-    /**
-     * Get teams
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTeams()
-    {
-        return $this->teams;
+        return $this->teamLocal;
     }
 
     /**
@@ -248,5 +236,101 @@ class Game
     public function getStadium()
     {
         return $this->stadium;
+    }
+
+    /**
+     * Set visitorScore
+     *
+     * @param integer $visitorScore
+     *
+     * @return Game
+     */
+    public function setVisitorScore($visitorScore)
+    {
+        $this->visitorScore = $visitorScore;
+
+        return $this;
+    }
+
+    /**
+     * Get visitorScore
+     *
+     * @return integer
+     */
+    public function getVisitorScore()
+    {
+        return $this->visitorScore;
+    }
+
+    /**
+     * Set localScore
+     *
+     * @param integer $localScore
+     *
+     * @return Game
+     */
+    public function setLocalScore($localScore)
+    {
+        $this->localScore = $localScore;
+
+        return $this;
+    }
+
+    /**
+     * Get localScore
+     *
+     * @return integer
+     */
+    public function getLocalScore()
+    {
+        return $this->localScore;
+    }
+
+    /**
+     * Set visitorTeam
+     *
+     * @param \AppBundle\Entity\Team $visitorTeam
+     *
+     * @return Game
+     */
+    public function setVisitorTeam(\AppBundle\Entity\Team $visitorTeam = null)
+    {
+        $this->visitorTeam = $visitorTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get visitorTeam
+     *
+     * @return \AppBundle\Entity\Team
+     */
+    public function getVisitorTeam()
+    {
+        return $this->visitorTeam;
+    }
+
+    /**
+     * Set localTeam
+     *
+     * @param \AppBundle\Entity\Team $localTeam
+     *
+     * @return Game
+     */
+    public function setLocalTeam(\AppBundle\Entity\Team $localTeam = null)
+    {
+        $this->localTeam = $localTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get localTeam
+     *
+     * @return \AppBundle\Entity\Team
+     */
+    public function getLocalTeam()
+    {
+        return $this->localTeam;
     }
 }

@@ -1,0 +1,29 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modification du stade "{{ stadium.city }}"{% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Stade',
+        subtitle: 'Modification de <u>' ~ stadium.city ~ '</u>'
+    } %}
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-4 is-offset-4">
+                    <div class="box">
+                        {% include 'stadium/admin/_form.html.twig' with {
+                            'form': edit_form,
+                            'submit': 'Modifier le stade',
+                            'action': path('admin_stadium_edit', { 'stadium': stadium.id })
+                        } %}
+                    </div>
+                    <ul>
+                        <li><a href="{{ path('admin_stadium_delete', { 'stadium': stadium.id }) }}" class="has-text-danger">Supprimer ce stade</a></li>
+                        <li><a href="{{ path('admin_stadium_list') }}">Retourner à la liste des stades</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

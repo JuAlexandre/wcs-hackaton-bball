@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Stades',
+        subtitle: 'Liste des stades'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <!-- Liste des stades -->
+                <div class="column is-8">
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ville</th>
+                                <th>Capacité</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for stadium in stadiums %}
+                            <tr>
+                                <th>{{ stadium.id }}</th>
+                                <td>{{ stadium.city }}</td>
+                                <td>{{ stadium.capacity }}</td>
+                                <td>
+                                    <a href="{{ path('admin_stadium_edit', { 'stadium': stadium.id }) }}">Modifier</a>
+                                    <a href="{{ path('admin_stadium_delete', { 'stadium': stadium.id }) }}" class="has-text-danger">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Création d'une équipe -->
+                <div class="column">
+                    <div class="box">
+                        {% include 'stadium/admin/_form.html.twig' with {
+                            'form': create_form,
+                            'submit': 'Créer le stade',
+                            'action': path('admin_stadium_create')
+                        } %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

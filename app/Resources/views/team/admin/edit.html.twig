@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modification de l'équipe {{ team.name }} {% endblock %}
+
+{% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        title: 'Equipes',
+        subtitle: 'Modification de <u>' ~ team.name ~ '</u>'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-4 is-offset-4">
+                    <div class="box">
+                        {% include 'team/admin/_form.html.twig' with {
+                            'form': edit_form,
+                            'submit': 'Modifier l\'équipe',
+                            'action': path('admin_team_edit', { 'team': team.id })
+                        } %}
+                    </div>
+                    <ul>
+                        <li><a href="{{ path('admin_team_delete', { 'team': team.id }) }}" class="has-text-danger">Supprimer cette équipe</a></li>
+                        <li><a href="{{ path('admin_team_list') }}">Retourner à la liste des équipes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

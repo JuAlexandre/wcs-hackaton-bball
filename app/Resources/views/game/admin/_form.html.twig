@@ -1,0 +1,37 @@
+{{ form_start(form, { 'action': action }) }}
+    <div class="field">
+        <label class="label">{{ form_label(form.localTeam) }}</label>
+        <div class="control select is-fullwidth">{{ form_widget(form.localTeam) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.visitorTeam) }}</label>
+        <div class="control select is-fullwidth">{{ form_widget(form.visitorTeam) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.stadium) }}</label>
+        <div class="control select is-fullwidth">{{ form_widget(form.stadium) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.beginAt) }}</label>
+        <div class="">{{ form_widget(form.beginAt) }}</div>
+    </div>
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label checkbox">
+                    {{ form_widget(form.isPoolGame) }}
+                    {{ form_label(form.isPoolGame) }}
+                </label>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label checkbox">
+                    {{ form_widget(form.isFinished) }}
+                    {{ form_label(form.isFinished) }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <button class="button is-link is-fullwidth">{{ submit }}</button>
+{{ form_end(form) }}

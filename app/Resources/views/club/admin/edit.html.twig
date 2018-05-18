@@ -3,11 +3,26 @@
 {% block title %}Modification du club "{{ club.name }}"{% endblock %}
 
 {% block body %}
+    {% include 'admin/_page_heading.html.twig' with {
+        'title': 'Club',
+        'subtitle': 'Modification du club <u>' ~ club.name ~ '</u>'
+    } %}
+
     <section class="section">
         <div class="container is-fluid">
             <div class="columns">
                 <div class="column is-4 is-offset-4">
-                    test
+                    <div class="box">
+                        {% include 'club/admin/_form.html.twig' with {
+                            'form': edit_form,
+                            'submit': 'Modifier le club',
+                            'action': path('admin_club_edit', { 'club': club.id })
+                        } %}
+                    </div>
+                    <ul>
+                        <li><a href="{{ path('admin_club_delete', { 'club': club.id }) }}" class="has-text-danger">Supprimer ce club</a></li>
+                        <li><a href="{{ path('admin_club_list') }}">Retourner à la liste des clubs</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
