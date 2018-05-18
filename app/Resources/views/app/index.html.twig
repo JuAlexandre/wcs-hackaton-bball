@@ -1,13 +1,26 @@
 {% extends 'app/base.html.twig' %}
 
 {% block body %}
-    <section class="section hero is-link">
+    <section class="hero is-link is-medium">
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title">Fédération Internationale de Basketball</h1>
             </div>
         </div>
+        <div class="hero-foot">
+            <nav class="tabs is-boxed is-fullwidth">
+                <div class="container">
+                <ul>
+                    <li class="is-active"><a>Matches</a></li>
+                    <li><a>Pays</a></li>
+                    <li><a>Equipes</a></li>
+                    <li><a>Joueurs</a></li>
+                </ul>
+                </div>
+            </nav>
+        </div>
     </section>
+
     <section class="section">
         <div class="container is-fluid">
             <div class="box">
