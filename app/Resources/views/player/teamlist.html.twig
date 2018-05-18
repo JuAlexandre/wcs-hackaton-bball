@@ -12,8 +12,8 @@
                 <div class="container">
                     <ul>
                         <li><a href="/">Matches</a></li>
-                        <li class="is-active"><a href="/teams">Pays</a></li>
-                        <li><a href="/players">Joueurs</a></li>
+                        <li><a href="/teams">Pays</a></li>
+                        <li class="is-active"><a href="/players">Joueurs</a></li>
                     </ul>
                 </div>
             </nav>
@@ -23,11 +23,12 @@
     <section class="section">
         <div class="container is-fluid">
             <div class="columns is-multiline">
-                {% for team in teams %}
-                    <div class="column is-3 has-text-centered">
+                {% for player in players | slice(0, 5) %}
+                    <div class="column is-2 has-text-centered">
                         <div class="box">
-                            <div><a href="/players/teamlist"><img alt="flag" src="{{ asset('images/icons/'~team.flag) }}"/></a></div>
-                            <div class="has-text-weight-bold">{{ team.name }}</div>
+                            <div><img src="{{ player.picture }}"/></div>
+                            <div class="has-text-weight-bold">{{ player.lastname }}</div>
+                            <div class="has-text-weight-bold">{{ player.firstname }}</div>
                         </div>
                     </div>
                 {% endfor %}

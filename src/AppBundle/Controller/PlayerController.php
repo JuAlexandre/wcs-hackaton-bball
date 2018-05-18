@@ -117,4 +117,15 @@ class PlayerController extends Controller
             'players' => $this->getDoctrine()->getRepository(Player::class)->findAll(),
         ]);
     }
+
+    /**
+     * @return Response
+     * @Route("/players/teamlist", name="teamplayer_list")
+     */
+    public function teamlist(): Response
+    {
+        return $this->render('player/teamlist.html.twig', [
+            'players' => $this->getDoctrine()->getRepository(Player::class)->findAll(),
+        ]);
+    }
 }
