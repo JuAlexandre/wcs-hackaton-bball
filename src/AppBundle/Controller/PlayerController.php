@@ -106,4 +106,15 @@ class PlayerController extends Controller
 
         return $this->redirectToRoute('admin_player_list');
     }
+
+    /**
+     * @return Response
+     * @Route("/players", name="player_list")
+     */
+    public function list(): Response
+    {
+        return $this->render('player/list.html.twig', [
+            'players' => $this->getDoctrine()->getRepository(Player::class)->findAll(),
+        ]);
+    }
 }
