@@ -61,24 +61,14 @@ class AppFixtures extends Fixture
         }
 
         // Create teams (name, flag, pool)
-        $teams = [
-            ['team1', 'flag1', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team2', 'flag2', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team3', 'flag3', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team4', 'flag4', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team5', 'flag5', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team6', 'flag6', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team7', 'flag7', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team8', 'flag8', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team9', 'flag9', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team10', 'flag10', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team11', 'flag11', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team12', 'flag12', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team13', 'flag13', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team14', 'flag14', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team15', 'flag15', $this->getReference('pool' . rand(0, count($pools)-1))],
-            ['team16', 'flag16', $this->getReference('pool' . rand(0, count($pools)-1))],
-        ];
+        $teams = [];
+        for ($i=0; $i < 16; $i++) {
+            $teams[] = [
+                'team' . $i,
+                'flag' . $i,
+                $this->getReference('pool' . rand(0, count($pools)-1))
+            ];
+        }
 
         $i = 0;
         foreach ($teams as $teamEntry) {
@@ -98,7 +88,7 @@ class AppFixtures extends Fixture
 
         // Create players (firstName, lastName, age, shirtNumber, club, team, picture)
         $players = [];
-        for ($i=0; $i < 150; $i++) {
+        for ($i=0; $i < 80; $i++) {
             $players[] = [
                 'prénom' . $i,
                 'nom' . $i,
