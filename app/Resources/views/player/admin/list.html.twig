@@ -22,6 +22,7 @@
                                 <th>Photo</th>
                                 <th>Age</th>
                                 <th>N° Maillot</th>
+                                <th>Pays</th>
                                 <th>Club</th>
                                 <th>Actions</th>
                             </tr>
@@ -35,6 +36,7 @@
                                     <td><a href="{{ player.picture }}" target="_blank">Voir la photo</a></td>
                                     <td>{{ player.age }}</td>
                                     <td>{{ player.shirtNumber }}</td>
+                                    <td>{{ player.team.name }}</td>
                                     <td>{{ player.club.name }}</td>
                                     <td>
                                         <a href="{{ path('admin_player_edit', { 'player': player.id }) }}">Modifier</a>
