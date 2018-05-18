@@ -31,7 +31,7 @@ class Game
 
     /**
      * @var Team
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="gamesVisitor")
      */
     private $visitorTeam;
 
@@ -43,7 +43,7 @@ class Game
 
     /**
      * @var Team
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="games")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="gamesLocal")
      */
     private $localTeam;
 

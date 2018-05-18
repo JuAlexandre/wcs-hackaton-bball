@@ -17,6 +17,10 @@ class PoolType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la poule',
+                'attr' => [
+                    'placeholder' => 'Nom de la poule'
+                ],
+                'required' => true
             ])
         ;
     }
@@ -30,14 +34,4 @@ class PoolType extends AbstractType
             'data_class' => 'AppBundle\Entity\Pool'
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'appbundle_pool';
-    }
-
-
 }

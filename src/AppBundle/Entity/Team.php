@@ -50,13 +50,13 @@ class Team
 
     /**
      * @var Game[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game", mappedBy="visitorTeam")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Game", mappedBy="visitorTeam")
      */
     private $gamesVisitor;
 
     /**
      * @var Game[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game", mappedBy="localTeam")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Game", mappedBy="localTeam")
      */
     private $gamesLocal;
 
