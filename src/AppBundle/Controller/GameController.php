@@ -55,25 +55,6 @@ class GameController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $teamManager = $em->getRepository(Team::class);
-
-            $teamLocalId = $req->request->get('game')['local_team'];
-            $teamVisitorId = $req->request->get('game')['visitor_team'];
-
-            $teamLocal = $teamManager->find($teamLocalId);
-            $teamVisitor = $teamManager->find($teamVisitorId);
-
-            $game->setTeams([
-                $teamLocal,
-                $teamVisitor
-            ]);
-
-            $gameTeamStatsLocal = new GameTeamStats($game, $teamLocal);
-            $gameTeamStatsVisitor = new GameTeamStats($game, $teamVisitor);
-
-            $em->persist($gameTeamStatsLocal);
-            $em->persist($gameTeamStatsVisitor);
-
             $em->persist($game);
             $em->flush();
         }
