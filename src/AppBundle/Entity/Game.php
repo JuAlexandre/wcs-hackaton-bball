@@ -30,21 +30,28 @@ class Game
     private $id;
 
     /**
-     * @var GameTeamStats[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GameTeamStats", mappedBy="game")
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="games")
      */
-    private $stats;
+    private $visitorTeam;
 
     /**
-     * @var Teams[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Team", inversedBy="games")
-     * @Assert\Count(
-     *      min = 2,
-     *      max = 2,
-     *      exactMessage="Vous devez avoir exactement 2 Team."
-     * )
+     * @var int
+     * @ORM\Column(name="visitor_score", type="integer")
      */
-    private $teams;
+    private $visitorScore;
+
+    /**
+     * @var Team
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="games")
+     */
+    private $localTeam;
+
+    /**
+     * @var int
+     * @ORM\Column(name="local_score", type="integer")
+     */
+    private $localScore;
 
     /**
      * @var boolean
@@ -52,6 +59,13 @@ class Game
      * @Assert\Type("bool")
      */
     private $isPoolGame;
+
+    /**
+     * @var Stadium
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Stadium", inversedBy="games")
+     * @Assert\NotBlank()
+     */
+    private $stadium;
 
     /**
      * @var \DateTime
@@ -68,136 +82,252 @@ class Game
     private $isFinished;
 
     /**
-     * @var Stadium
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Stadium", inversedBy="games")
-     * @Assert\NotBlank()
+     * Get id
+     *
+     * @return integer
      */
-    private $stadium;
-
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * Set isPoolGame
+     *
+     * @param boolean $isPoolGame
+     *
      * @return Game
      */
-    public function setId(int $id): Game
+    public function setIsPoolGame($isPoolGame)
     {
-        $this->id = $id;
+        $this->isPoolGame = $isPoolGame;
+
         return $this;
     }
 
     /**
-     * @return GameTeamStats[]
+     * Get isPoolGame
+     *
+     * @return boolean
      */
-    public function getStats(): ?array
-    {
-        return $this->stats;
-    }
-
-    /**
-     * @param GameTeamStats[] $stats
-     * @return Game
-     */
-    public function setStats(array $stats): Game
-    {
-        $this->stats = $stats;
-        return $this;
-    }
-
-    /**
-     * @return Team[]
-     */
-    public function getTeams(): ?array
-    {
-        return $this->teams;
-    }
-
-    /**
-     * @param Team[] $teams
-     * @return Game
-     */
-    public function setTeams(array $teams): Game
-    {
-        $this->teams = $teams;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPoolGame(): ?bool
+    public function getIsPoolGame()
     {
         return $this->isPoolGame;
     }
 
     /**
-     * @param bool $isPoolGame
+     * Set beginAt
+     *
+     * @param \DateTime $beginAt
+     *
      * @return Game
      */
-    public function setIsPoolGame(bool $isPoolGame): Game
+    public function setBeginAt($beginAt)
     {
-        $this->isPoolGame = $isPoolGame;
+        $this->beginAt = $beginAt;
+
         return $this;
     }
 
     /**
+     * Get beginAt
+     *
      * @return \DateTime
      */
-    public function getBeginAt(): ?\DateTime
+    public function getBeginAt()
     {
         return $this->beginAt;
     }
 
     /**
-     * @param \DateTime $beginAt
+     * Set isFinished
+     *
+     * @param boolean $isFinished
+     *
      * @return Game
      */
-    public function setBeginAt(\DateTime $beginAt): Game
+    public function setIsFinished($isFinished)
     {
-        $this->beginAt = $beginAt;
+        $this->isFinished = $isFinished;
+
         return $this;
     }
 
     /**
-     * @return bool
+     * Get isFinished
+     *
+     * @return boolean
      */
-    public function isFinished(): ?bool
+    public function getIsFinished()
     {
         return $this->isFinished;
     }
 
     /**
-     * @param bool $isFinished
+     * Set teamVisitor
+     *
+     * @param \AppBundle\Entity\Team $teamVisitor
+     *
      * @return Game
      */
-    public function setIsFinished(bool $isFinished): Game
+    public function setTeamVisitor(\AppBundle\Entity\Team $teamVisitor = null)
     {
-        $this->isFinished = $isFinished;
+        $this->teamVisitor = $teamVisitor;
+
         return $this;
     }
 
     /**
-     * @return Stadium
+     * Get teamVisitor
+     *
+     * @return \AppBundle\Entity\Team
      */
-    public function getStadium(): ?Stadium
+    public function getTeamVisitor()
+    {
+        return $this->teamVisitor;
+    }
+
+    /**
+     * Set teamLocal
+     *
+     * @param \AppBundle\Entity\Team $teamLocal
+     *
+     * @return Game
+     */
+    public function setTeamLocal(\AppBundle\Entity\Team $teamLocal = null)
+    {
+        $this->teamLocal = $teamLocal;
+
+        return $this;
+    }
+
+    /**
+     * Get teamLocal
+     *
+     * @return \AppBundle\Entity\Team
+     */
+    public function getTeamLocal()
+    {
+        return $this->teamLocal;
+    }
+
+    /**
+     * Set stadium
+     *
+     * @param \AppBundle\Entity\Stadium $stadium
+     *
+     * @return Game
+     */
+    public function setStadium(\AppBundle\Entity\Stadium $stadium = null)
+    {
+        $this->stadium = $stadium;
+
+        return $this;
+    }
+
+    /**
+     * Get stadium
+     *
+     * @return \AppBundle\Entity\Stadium
+     */
+    public function getStadium()
     {
         return $this->stadium;
     }
 
     /**
-     * @param Stadium $stadium
+     * Set visitorScore
+     *
+     * @param integer $visitorScore
+     *
      * @return Game
      */
-    public function setStadium(Stadium $stadium): Game
+    public function setVisitorScore($visitorScore)
     {
-        $this->stadium = $stadium;
+        $this->visitorScore = $visitorScore;
+
         return $this;
     }
 
+    /**
+     * Get visitorScore
+     *
+     * @return integer
+     */
+    public function getVisitorScore()
+    {
+        return $this->visitorScore;
+    }
+
+    /**
+     * Set localScore
+     *
+     * @param integer $localScore
+     *
+     * @return Game
+     */
+    public function setLocalScore($localScore)
+    {
+        $this->localScore = $localScore;
+
+        return $this;
+    }
+
+    /**
+     * Get localScore
+     *
+     * @return integer
+     */
+    public function getLocalScore()
+    {
+        return $this->localScore;
+    }
+
+    /**
+     * Set visitorTeam
+     *
+     * @param \AppBundle\Entity\Team $visitorTeam
+     *
+     * @return Game
+     */
+    public function setVisitorTeam(\AppBundle\Entity\Team $visitorTeam = null)
+    {
+        $this->visitorTeam = $visitorTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get visitorTeam
+     *
+     * @return \AppBundle\Entity\Team
+     */
+    public function getVisitorTeam()
+    {
+        return $this->visitorTeam;
+    }
+
+    /**
+     * Set localTeam
+     *
+     * @param \AppBundle\Entity\Team $localTeam
+     *
+     * @return Game
+     */
+    public function setLocalTeam(\AppBundle\Entity\Team $localTeam = null)
+    {
+        $this->localTeam = $localTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get localTeam
+     *
+     * @return \AppBundle\Entity\Team
+     */
+    public function getLocalTeam()
+    {
+        return $this->localTeam;
+    }
 }

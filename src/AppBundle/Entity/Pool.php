@@ -35,6 +35,12 @@ class Pool
      */
     private $name;
 
+    /**
+     * @var Team[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Team", mappedBy="pool")
+     */
+    private $teams;
+
 
     /**
      * Get id.
@@ -68,5 +74,46 @@ class Pool
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add team
+     *
+     * @param \AppBundle\Entity\Team $team
+     *
+     * @return Pool
+     */
+    public function addTeam(\AppBundle\Entity\Team $team)
+    {
+        $this->teams[] = $team;
+
+        return $this;
+    }
+
+    /**
+     * Remove team
+     *
+     * @param \AppBundle\Entity\Team $team
+     */
+    public function removeTeam(\AppBundle\Entity\Team $team)
+    {
+        $this->teams->removeElement($team);
+    }
+
+    /**
+     * Get teams
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeams()
+    {
+        return $this->teams;
     }
 }
