@@ -19,6 +19,7 @@
                                 <th>#</th>
                                 <th>Nom</th>
                                 <th>Drapeau</th>
+                                <th>Poule</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -28,6 +29,7 @@
                                 <th>{{ team.id }}</th>
                                 <td>{{ team.name }}</td>
                                 <td><a href="{{ team.flag }}" target="_blank">{{ team.flag }}</a></td>
+                                <td>{{ team.pool.name }}</td>
                                 <td>
                                     <a href="{{ path('admin_team_edit', { 'team': team.id }) }}">Modifier</a>
                                     <a href="{{ path('admin_team_delete', { 'team': team.id }) }}" class="has-text-danger">Supprimer</a>
