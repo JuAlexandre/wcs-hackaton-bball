@@ -63,7 +63,7 @@ class AppFixtures extends Fixture
         // Create teams (name, flag, pool)
         $teams = [
             ['Argentine', 'AR.png', $this->getReference('pool1')],
-            ['Australie', 'Au.png', $this->getReference('pool1')],
+            ['Australie', 'AU.png', $this->getReference('pool1')],
             ['France', 'BL.png', $this->getReference('pool1')],
             ['Canada', 'CA.png', $this->getReference('pool1')],
             ['Chili', 'CL.png', $this->getReference('pool2')],

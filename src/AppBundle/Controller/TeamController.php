@@ -92,4 +92,15 @@ class TeamController extends Controller
         $this->addFlash('success', 'Equipe supprimée');
         return $this->redirectToRoute('admin_team_list');
     }
+
+    /**
+     * @return Response
+     * @Route("/teams", name="team_list")
+     */
+    public function list(): Response
+    {
+        return $this->render('team/list.html.twig', [
+            'teams' => $this->getDoctrine()->getRepository(Team::class)->findAll(),
+        ]);
+    }
 }
