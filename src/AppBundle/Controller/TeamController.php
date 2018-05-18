@@ -103,4 +103,5 @@ class TeamController extends Controller
             'teams' => $this->getDoctrine()->getRepository(Team::class)->findAll(),
         ]);
     }
+
 }
