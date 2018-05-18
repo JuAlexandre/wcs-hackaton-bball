@@ -10,7 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="player")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlayerRepository")
- * @UniqueEntity("picture", message="Cette photo est déjà utilisée.")
  */
 class Player
 {

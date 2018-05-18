@@ -95,11 +95,11 @@ class TeamController extends Controller
 
     /**
      * @return Response
-     * @Route("/teams", name="team_list")
+     * @Route("/teams", name="app_team_list")
      */
     public function list(): Response
     {
-        return $this->render('team/list.html.twig', [
+        return $this->render('team/app/list.html.twig', [
             'teams' => $this->getDoctrine()->getRepository(Team::class)->findAll(),
         ]);
     }

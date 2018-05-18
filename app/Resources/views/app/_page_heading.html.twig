@@ -1,0 +1,22 @@
+<section class="hero is-link is-medium">
+    <div class="hero-body">
+        <div class="container has-text-centered is-paddingless">
+            <img src="{{ asset('images/logoBBLL.png') }}" alt="Basketball World Cup 2018 logo" style="height: 525px"/>
+        </div>
+    </div>
+    {% if (menu is defined and (menu|length) > 0) and (displayMenu is not defined or displayMenu) %}
+        <div class="hero-foot">
+            <nav class="tabs is-boxed is-fullwidth">
+                <div class="container">
+                    <ul>
+                        {% for item in menu %}
+                            <li {% if app.request.attributes.get('_route') == item.route %}class="is-active"{% endif %}>
+                                <a href="{{ path(item.route) }}">{{ item.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    {% endif %}
+</section>

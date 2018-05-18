@@ -15,7 +15,7 @@ class AppController extends Controller
 {
     /**
      * App homepage
-     * @Route("/", name="homepage")
+     * @Route("/", name="app_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)

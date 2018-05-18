@@ -8,7 +8,7 @@
 
 namespace AppBundle\Controller;
 
-
+use AppBundle\Entity\Team;
 use AppBundle\Entity\Player;
 use AppBundle\Form\PlayerType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -109,23 +109,23 @@ class PlayerController extends Controller
 
     /**
      * @return Response
-     * @Route("/players", name="player_list")
+     * @Route("/players", name="app_player_list")
      */
-    public function list(): Response
+    public function appList(): Response
     {
-        return $this->render('player/list.html.twig', [
+        return $this->render('player/app/list.html.twig', [
             'players' => $this->getDoctrine()->getRepository(Player::class)->findAll(),
         ]);
     }
 
     /**
      * @return Response
-     * @Route("/players/teamlist", name="teamplayer_list")
+     * @Route("/team/{team}/players", name="app_team_player_list")
      */
-    public function teamlist(): Response
+    public function appPlayerList(Team $team, Request $req): Response
     {
-        return $this->render('player/teamlist.html.twig', [
-            'players' => $this->getDoctrine()->getRepository(Player::class)->findAll(),
+        return $this->render('player/app/list.html.twig', [
+            'players' => $team->getPlayers()
         ]);
     }
 }
