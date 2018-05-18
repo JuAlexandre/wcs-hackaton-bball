@@ -32,6 +32,7 @@ class Game
     /**
      * @var Team
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="gamesVisitor")
+     * @Assert\NotBlank(message="Vous devez sélectionner une équipe #1.")
      */
     private $visitorTeam;
 
@@ -44,6 +45,8 @@ class Game
     /**
      * @var Team
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Team", inversedBy="gamesLocal")
+     * @Assert\NotBlank(message="Vous devez sélectionner une équipe #2.")
+     * @Assert\NotEqualTo(propertyPath="visitorTeam", message="Vous devez sélectionner deux équipes différentes.")
      */
     private $localTeam;
 
