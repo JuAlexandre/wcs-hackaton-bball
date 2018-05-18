@@ -2,6 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Game;
+use AppBundle\Entity\GameTeamStats;
+use AppBundle\Entity\Player;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,24 +43,43 @@ class Team
     private $players;
 
     /**
-     * @var Game[]
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Game", mappedBy="teams")
+     * @var Pool
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pool", inversedBy="teams")
      */
-    private $games;
+    private $pool;
 
     /**
      * @var Game[]
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GameTeamStats", mappedBy="team")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Game", mappedBy="visitorTeam")
      */
-    private $scores;
+    private $gamesVisitor;
+
+    /**
+     * @var Game[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Game", mappedBy="localTeam")
+     */
+    private $gamesLocal;
+
+    /**
+     * Return list of games (visitors + locals)
+     * @return Game[]
+     */
+    public function getGames(): array
+    {
+        return array_merge(
+            $this->getGamesLocal()->toArray(),
+            $this->getGamesVisitor()->toArray()
+        );
+    }
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->players = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gamesVisitor = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gamesLocal = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -152,70 +175,94 @@ class Team
     }
 
     /**
-     * Add game
+     * Add gamesVisitor
      *
-     * @param \AppBundle\Entity\Game $game
+     * @param \AppBundle\Entity\Game $gamesVisitor
      *
      * @return Team
      */
-    public function addGame(\AppBundle\Entity\Game $game)
+    public function addGamesVisitor(\AppBundle\Entity\Game $gamesVisitor)
     {
-        $this->games[] = $game;
+        $this->gamesVisitor[] = $gamesVisitor;
 
         return $this;
     }
 
     /**
-     * Remove game
+     * Remove gamesVisitor
      *
-     * @param \AppBundle\Entity\Game $game
+     * @param \AppBundle\Entity\Game $gamesVisitor
      */
-    public function removeGame(\AppBundle\Entity\Game $game)
+    public function removeGamesVisitor(\AppBundle\Entity\Game $gamesVisitor)
     {
-        $this->games->removeElement($game);
+        $this->gamesVisitor->removeElement($gamesVisitor);
     }
 
     /**
-     * Get games
+     * Get gamesVisitor
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getGames()
+    public function getGamesVisitor()
     {
-        return $this->games;
+        return $this->gamesVisitor;
     }
 
     /**
-     * Add score
+     * Add gamesLocal
      *
-     * @param \AppBundle\Entity\GameTeamStats $score
+     * @param \AppBundle\Entity\Game $gamesLocal
      *
      * @return Team
      */
-    public function addScore(\AppBundle\Entity\GameTeamStats $score)
+    public function addGamesLocal(\AppBundle\Entity\Game $gamesLocal)
     {
-        $this->scores[] = $score;
+        $this->gamesLocal[] = $gamesLocal;
 
         return $this;
     }
 
     /**
-     * Remove score
+     * Remove gamesLocal
      *
-     * @param \AppBundle\Entity\GameTeamStats $score
+     * @param \AppBundle\Entity\Game $gamesLocal
      */
-    public function removeScore(\AppBundle\Entity\GameTeamStats $score)
+    public function removeGamesLocal(\AppBundle\Entity\Game $gamesLocal)
     {
-        $this->scores->removeElement($score);
+        $this->gamesLocal->removeElement($gamesLocal);
     }
 
     /**
-     * Get scores
+     * Get gamesLocal
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getScores()
+    public function getGamesLocal()
     {
-        return $this->scores;
+        return $this->gamesLocal;
+    }
+
+    /**
+     * Set pool
+     *
+     * @param \AppBundle\Entity\Pool $pool
+     *
+     * @return Team
+     */
+    public function setPool(\AppBundle\Entity\Pool $pool = null)
+    {
+        $this->pool = $pool;
+
+        return $this;
+    }
+
+    /**
+     * Get pool
+     *
+     * @return \AppBundle\Entity\Pool
+     */
+    public function getPool()
+    {
+        return $this->pool;
     }
 }

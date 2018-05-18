@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Player;
+use AppBundle\Entity\Pool;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -35,6 +36,11 @@ class TeamType extends AbstractType
                     'placeholder' => 'Lien vers le drapeau du pays'
                 ],
                 'label' => 'Drapeau du pays',
+                'required' => true
+            ])
+            ->add('pool', EntityType::class, [
+                'class' => Pool::class,
+                'choice_label' => 'name',
                 'required' => true
             ])
         ;

@@ -1,0 +1,27 @@
+{{ form_start(form, { 'action': action }) }}
+    <div class="field">
+        <label class="label">{{ form_label(form.local_team) }}</label>
+        <div class="control">{{ form_widget(form.local_team, { 'attr': { 'class': 'select' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.visitor_team) }}</label>
+        <div class="control">{{ form_widget(form.visitor_team, { 'attr': { 'class': 'select' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.stadium) }}</label>
+        <div class="control">{{ form_widget(form.stadium, { 'attr': { 'class': 'select' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.isPoolGame) }}</label>
+        <div class="control">{{ form_widget(form.isPoolGame, { 'attr': { 'class': 'checkbox' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.isFinished) }}</label>
+        <div class="control">{{ form_widget(form.isFinished, { 'attr': { 'class': 'checkbox' } }) }}</div>
+    </div>
+    <div class="field">
+        <label class="label">{{ form_label(form.beginAt) }}</label>
+        <div class="control">{{ form_widget(form.beginAt, { 'attr': { 'class': '' } }) }}</div>
+    </div>
+    <button class="button is-link is-fullwidth">{{ submit }}</button>
+{{ form_end(form) }}

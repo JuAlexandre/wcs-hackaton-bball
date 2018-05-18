@@ -21,6 +21,7 @@
                                 <th>Poule ?</th>
                                 <th>Date</th>
                                 <th>Terminé ?</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,6 +32,10 @@
                                     <td>{% if game.isPoolGame %}Oui{% else %}Non{% endif %}</td>
                                     <td>{{ game.beginAt|date("m/d/Y à G:H") }}</td>
                                     <td>{% if game.isFinished %}Oui{% else %}Non{% endif %}</td>
+                                    <td>
+                                        <a href="{{ path('admin_game_edit', { 'game': game.id }) }}">Modifier</a>
+                                        {#<a href="{{ path('admin_game_delete', { 'game': game.id }) }}" class="has-text-danger">Supprimer</a>                                            </li>#}
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

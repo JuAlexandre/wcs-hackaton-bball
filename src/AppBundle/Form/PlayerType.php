@@ -45,9 +45,9 @@ class PlayerType extends AbstractType
             ])
             ->add('age', IntegerType::class, [
                 'attr' => [
-                    'placeholder' => 'Age du joueur'
+                    'placeholder' => 'Âge du joueur'
                 ],
-                'label' => 'Age',
+                'label' => 'Âge',
                 'required' => true
             ])
             ->add('shirtNumber', IntegerType::class, [

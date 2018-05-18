@@ -1,0 +1,30 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modification du match "{{ game.id }}"{% endblock %}
+
+{% block body %}
+
+    {% include 'admin/_page_heading.html.twig' with {
+        'title': 'Match',
+        'subtitle': 'Modification du match <u>' ~ game.id ~ '</u>'
+    } %}
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+                <div class="column is-4 is-offset-4">
+                    <div class="box">
+                        {% include 'game/admin/_form.html.twig' with {
+                            'form': edit_form,
+                            'submit': 'Modifier le match',
+                            'action': path('admin_game_edit', { 'game': game.id })
+                        } %}
+                    </div>
+                        <ul>
+                            {#<li><a href="{{ path('admin_game_delete', { 'game': game.id }) }}" class="has-text-danger">Supprimer cette poule</a></li>#}
+                            <li><a href="{{ path('admin_game_list') }}">Retourner à la liste des matchs</a></li>
+                        </ul>
+                    </div>
+                </div>
+    </section>
+{% endblock %}
