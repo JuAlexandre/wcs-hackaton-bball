@@ -1,20 +1,37 @@
-# WCS Hackaton Basket-Ball
-En juin prochain, la coupe du monde de Basket-Ball débute !
+# wcs-hackaton-bball
+
+Next June, the Basketball World Cup kicks off!
 
 ## Installation
-1. Clonez le dépôt.
-2. Déplacez-vous dans le dossier et éxécutez la commande `composer install`.
-3. Démarrez le serveur PHP avec `php bin/console server:run`.
 
-## Reconstruction des assets
-1. Executez la commande `npm install` pour installer les modules node.js.
-2. Et enfin `npm run dev` pour transformer vos fichiers js et scss.
+Clone the repository and move in :
+```
+$ git clone https://github.com/JuAlexandre/wcs-hackaton-bball.git
+$ cd wcs-hackaton-bball
+```
 
-Vous pouvez également utiliser la commande `npm run build` pour la prod (minifie les fichiers) ou `npm run watch` pour effectuer la transformation à chaques changement automatiquement.
+Install PHP and JS dependencies :
+```
+$ composer install
+$ npm install
+```
 
-## Développeurs
-* SteadyB - [Github](https://github.com/SteadyB)
-* cyrildo - [Github](https://github.com/cyrildo)
-* nooneexpectme - [Github](https://github.com/nooneexpectme)
-* jeromelegrand - [Github](https://github.com/jeromelegrand)
-* JuAlexandre - [Github](https://github.com/JuAlexandre)
+Build assets :
+```
+npm run dev
+```
+
+Launch the PHP sever :
+```
+php bin/console server:run
+```
+
+You can also use the `npm run build` command for production (minify files) or` npm run watch` to perform the transformation at each change automatically.
+
+## Authors
+
+* [Benjamin BERTHIER](https://github.com/SteadyB)
+* [Cyril DO](https://github.com/cyrildo)
+* [Erwan DANGUY](https://github.com/nooneexpectme)
+* [Jérôme LEGRAND](https://github.com/jeromelegrand)
+* [Julien ALEXANDRE](https://github.com/JuAlexandre)
