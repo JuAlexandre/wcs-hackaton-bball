@@ -1,5 +1,7 @@
 # wcs-hackaton-bball
 
+Second Hackathon of the Orléans Wild Code School (February 2018 session).
+
 Next June, the Basketball World Cup kicks off!
 
 ## Installation
